@@ -1,7 +1,30 @@
 import { createAudioPlayer, setAudioModeAsync, type AudioPlayer } from 'expo-audio';
 import { useEffect, useRef } from 'react';
 
-import { resolveAudioCue } from '../assets/registry';
+import {
+  resolveEnvironmentalAmbience,
+  resolveMusic,
+  resolveNarrativeStinger,
+  resolveUiTextSound,
+  type AudioAsset,
+} from '../assets/registry';
+
+const MUSIC_CROSSFADE_MS = 2000;
+const FADE_STEP_MS = 50;
+
+interface NarrativeAudio {
+  music?: string;
+  ambience?: string[];
+  uiSounds?: string[];
+  stingers?: string[];
+  eventKey?: string;
+}
+
+interface ActiveMusic {
+  id: string;
+  player: AudioPlayer;
+  targetVolume: number;
+}
 
 function release(players: AudioPlayer[]): void {
   players.forEach((player) => {
@@ -9,53 +32,158 @@ function release(players: AudioPlayer[]): void {
       player.pause();
       player.release();
     } catch {
-      // Audio is atmospheric; an unsupported/missing player must never block the story.
+      // Audio must never block the story when a player or asset is unavailable.
     }
   });
 }
 
-export function useNarrativeAudio(cues: string[] | undefined, enabled: boolean): void {
-  const players = useRef<AudioPlayer[]>([]);
-  const latestCues = useRef<string[] | undefined>(cues);
-  const cueKey = cues?.join('|') ?? '';
+function createPlayers(
+  ids: string[],
+  resolve: (id: string) => AudioAsset | undefined,
+  category: string,
+): AudioPlayer[] {
+  const players: AudioPlayer[] = [];
+
+  for (const id of ids) {
+    const asset = resolve(id);
+    if (!asset) {
+      if (typeof __DEV__ !== 'undefined' && __DEV__) {
+        console.info(`[audio:${category}] placeholder: ${id}`);
+      }
+      continue;
+    }
+
+    try {
+      const player = createAudioPlayer(asset.source);
+      player.loop = asset.loop;
+      player.volume = asset.volume;
+      player.play();
+      players.push(player);
+    } catch (error) {
+      if (typeof __DEV__ !== 'undefined' && __DEV__) {
+        console.warn(`[audio:${category}] ${id}`, error);
+      }
+    }
+  }
+
+  return players;
+}
+
+export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void {
+  const ambiencePlayers = useRef<AudioPlayer[]>([]);
+  const uiPlayers = useRef<AudioPlayer[]>([]);
+  const stingerPlayers = useRef<AudioPlayer[]>([]);
+  const activeMusic = useRef<ActiveMusic | undefined>(undefined);
+  const fadingOutMusic = useRef<AudioPlayer | undefined>(undefined);
+  const musicFade = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const latestAmbience = useRef<string[] | undefined>(undefined);
+
+  const ambienceKey = audio.ambience?.join('|') ?? '__inherit__';
+  const uiKey = audio.uiSounds?.join('|') ?? '';
+  const stingerKey = audio.stingers?.join('|') ?? '';
 
   useEffect(() => {
     void setAudioModeAsync({ playsInSilentMode: true, interruptionMode: 'mixWithOthers' });
   }, []);
 
   useEffect(() => {
-    if (cues) latestCues.current = cues;
+    if (musicFade.current) clearInterval(musicFade.current);
+    if (fadingOutMusic.current) release([fadingOutMusic.current]);
+    fadingOutMusic.current = undefined;
+
     if (!enabled) {
-      release(players.current);
-      players.current = [];
+      if (activeMusic.current) release([activeMusic.current.player]);
+      activeMusic.current = undefined;
       return;
     }
-    if (!cues && players.current.length > 0) return;
 
-    const effectiveCues = cues ?? latestCues.current;
-    if (!effectiveCues) return;
-    release(players.current);
-    players.current = [];
+    if (activeMusic.current?.id === audio.music) return;
 
-    for (const cue of effectiveCues) {
-      const asset = resolveAudioCue(cue);
-      if (!asset) {
-        if (typeof __DEV__ !== 'undefined' && __DEV__) console.info(`[audio] placeholder: ${cue}`);
-        continue;
-      }
+    const outgoing = activeMusic.current;
+    const asset = audio.music ? resolveMusic(audio.music) : undefined;
+    let incoming: ActiveMusic | undefined;
+
+    if (audio.music && !asset && typeof __DEV__ !== 'undefined' && __DEV__) {
+      console.info(`[audio:music] placeholder: ${audio.music}`);
+    }
+
+    if (asset) {
       try {
         const player = createAudioPlayer(asset.source);
         player.loop = asset.loop;
-        player.volume = asset.volume;
+        player.volume = 0;
         player.play();
-        players.current.push(player);
+        incoming = { id: audio.music!, player, targetVolume: asset.volume };
       } catch (error) {
-        if (typeof __DEV__ !== 'undefined' && __DEV__) console.warn(`[audio] ${cue}`, error);
+        if (typeof __DEV__ !== 'undefined' && __DEV__) {
+          console.warn(`[audio:music] ${audio.music}`, error);
+        }
       }
     }
-    // cueKey deliberately represents the array contents without depending on its identity.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cueKey, enabled]);
 
-  useEffect(() => () => release(players.current), []);
+    activeMusic.current = incoming;
+    fadingOutMusic.current = outgoing?.player;
+    const outgoingStartVolume = outgoing?.player.volume ?? 0;
+    const startedAt = Date.now();
+
+    musicFade.current = setInterval(() => {
+      const progress = Math.min(1, (Date.now() - startedAt) / MUSIC_CROSSFADE_MS);
+      if (outgoing) outgoing.player.volume = outgoingStartVolume * (1 - progress);
+      if (incoming) incoming.player.volume = incoming.targetVolume * progress;
+
+      if (progress >= 1) {
+        if (musicFade.current) clearInterval(musicFade.current);
+        musicFade.current = undefined;
+        if (outgoing) release([outgoing.player]);
+        fadingOutMusic.current = undefined;
+      }
+    }, FADE_STEP_MS);
+  }, [audio.music, enabled]);
+
+  useEffect(() => {
+    if (audio.ambience !== undefined) latestAmbience.current = audio.ambience;
+    if (!enabled) {
+      release(ambiencePlayers.current);
+      ambiencePlayers.current = [];
+      return;
+    }
+    if (audio.ambience === undefined && ambiencePlayers.current.length > 0) return;
+
+    const ambience = audio.ambience ?? latestAmbience.current;
+    if (!ambience) return;
+    release(ambiencePlayers.current);
+    ambiencePlayers.current = createPlayers(
+      ambience,
+      resolveEnvironmentalAmbience,
+      'ambience',
+    );
+  }, [ambienceKey, enabled, audio.ambience]);
+
+  useEffect(() => {
+    release(uiPlayers.current);
+    uiPlayers.current = enabled
+      ? createPlayers(audio.uiSounds ?? [], resolveUiTextSound, 'ui')
+      : [];
+  }, [audio.eventKey, enabled, uiKey, audio.uiSounds]);
+
+  useEffect(() => {
+    release(stingerPlayers.current);
+    stingerPlayers.current = enabled
+      ? createPlayers(audio.stingers ?? [], resolveNarrativeStinger, 'stinger')
+      : [];
+  }, [audio.eventKey, enabled, stingerKey, audio.stingers]);
+
+  useEffect(
+    () => () => {
+      if (musicFade.current) clearInterval(musicFade.current);
+      release([
+        ...ambiencePlayers.current,
+        ...uiPlayers.current,
+        ...stingerPlayers.current,
+        ...(activeMusic.current ? [activeMusic.current.player] : []),
+        ...(fadingOutMusic.current ? [fadingOutMusic.current] : []),
+      ]);
+    },
+    [],
+  );
 }

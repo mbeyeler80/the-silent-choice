@@ -29,7 +29,6 @@ export function resolveVisual(visualId: string | undefined, scene: number): Imag
   return (visualId ? visuals[visualId] : undefined) ?? sceneImages[scene];
 }
 
-const waterfall = require('../../assets/audio/sfx/01_waterfall_distant_loop.wav');
 const wind = require('../../assets/audio/sfx/02_wind_soft_loop.wav');
 const interior = require('../../assets/audio/sfx/03_hermitage_interior_loop.wav');
 const machine = require('../../assets/audio/sfx/04_machine_pulse_loop.wav');
@@ -37,18 +36,75 @@ const silence = require('../../assets/audio/sfx/05_silent_room_loop.wav');
 const embodiment = require('../../assets/audio/sfx/06_transition_embodiment.wav');
 const ascension = require('../../assets/audio/sfx/07_transition_ascension.wav');
 
-const audio: Record<string, AudioAsset> = {
-  waterfall_distant: { source: waterfall, loop: true, volume: 0.42 },
-  waterfall_muffled: { source: interior, loop: true, volume: 0.28 },
-  waterfall_internal_memory: { source: waterfall, loop: true, volume: 0.22 },
-  waterfall_return: { source: waterfall, loop: true, volume: 0.34 },
-  wind_soft: { source: wind, loop: true, volume: 0.2 },
-  machine_pulse_low: { source: machine, loop: true, volume: 0.12 },
-  near_silence: { source: silence, loop: true, volume: 0.28 },
-  body_activation: { source: embodiment, loop: false, volume: 0.72 },
-  network_bloom: { source: ascension, loop: false, volume: 0.72 },
+const environmentalAmbience: Record<string, AudioAsset> = {
+  hermitage_interior: { source: interior, loop: true, volume: 0.1 },
+  wind_soft: { source: wind, loop: true, volume: 0.1 },
+  machine_pulse_low: { source: machine, loop: true, volume: 0.08 },
+  near_silence: { source: silence, loop: true, volume: 0.1 },
 };
 
-export function resolveAudioCue(cueId: string): AudioAsset | undefined {
-  return audio[cueId];
+const uiTextSounds: Record<string, AudioAsset> = {};
+
+const narrativeStingers: Record<string, AudioAsset> = {
+  body_activation: { source: embodiment, loop: false, volume: 0.72 },
+  network_bloom: { source: ascension, loop: false, volume: 0.72 },
+  stinger_memory_verified_prog70: {
+    source: require('../../assets/audio/music/stinger_memory_verified_prog70.wav'),
+    loop: false,
+    volume: 0.48,
+  },
+  stinger_embodiment_prog70: {
+    source: require('../../assets/audio/music/stinger_embodiment_prog70.wav'),
+    loop: false,
+    volume: 0.48,
+  },
+  stinger_ascension_prog70: {
+    source: require('../../assets/audio/music/stinger_ascension_prog70.wav'),
+    loop: false,
+    volume: 0.48,
+  },
+};
+
+const music: Record<string, AudioAsset> = {
+  music_01_hermitage_prog70: {
+    source: require('../../assets/audio/music/music_01_hermitage_prog70.wav'),
+    loop: true,
+    volume: 0.12,
+  },
+  music_02_fragment_prog70: {
+    source: require('../../assets/audio/music/music_02_fragment_prog70.wav'),
+    loop: true,
+    volume: 0.12,
+  },
+  music_03_silent_room_prog70: {
+    source: require('../../assets/audio/music/music_03_silent_room_prog70.wav'),
+    loop: true,
+    volume: 0.08,
+  },
+  music_04_continuity_terminal_prog70: {
+    source: require('../../assets/audio/music/music_04_continuity_terminal_prog70.wav'),
+    loop: true,
+    volume: 0.12,
+  },
+  music_05_choice_prog70: {
+    source: require('../../assets/audio/music/music_05_choice_prog70.wav'),
+    loop: true,
+    volume: 0.12,
+  },
+};
+
+export function resolveMusic(assetId: string): AudioAsset | undefined {
+  return music[assetId];
+}
+
+export function resolveEnvironmentalAmbience(assetId: string): AudioAsset | undefined {
+  return environmentalAmbience[assetId];
+}
+
+export function resolveUiTextSound(assetId: string): AudioAsset | undefined {
+  return uiTextSounds[assetId];
+}
+
+export function resolveNarrativeStinger(assetId: string): AudioAsset | undefined {
+  return narrativeStingers[assetId];
 }

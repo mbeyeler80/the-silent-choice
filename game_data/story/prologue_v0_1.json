@@ -21,9 +21,9 @@
   "nodes": [
     {
       "id": "s1_awareness",
-      "scene": 1,
+      "scene": 1, "music": "music_01_hermitage_prog70",
       "visual": "hermitage_exterior_dim",
-      "audio": ["waterfall_distant", "wind_soft"],
+      "ambience": ["wind_soft"],
       "text": ["Water.", "Not an image.", "Not yet.", "Only the sound of water falling somewhere beyond you.", "Then wind.", "It moves through grass.", "Across stone.", "Through something you cannot yet name.", "There is light.", "Three flames.", "Candles.", "You know the word.", "You do not know why."],
       "choices": [
         {"label": "LISTEN TO THE WATER", "next": "s1_after_choice", "effects": {"continuity": 1}},
@@ -33,15 +33,15 @@
     },
     {
       "id": "s1_after_choice",
-      "scene": 1,
+      "scene": 1, "music": "music_01_hermitage_prog70",
       "text": ["Something is missing.", "A memory?", "A name?", "A body?", "You cannot tell.", "But the absence itself is familiar.", "You remember nothing.", "Yet you understand everything."],
       "next": "s2_exterior"
     },
     {
       "id": "s2_exterior",
-      "scene": 2,
+      "scene": 2, "music": "music_01_hermitage_prog70",
       "visual": "hermitage_exterior_full",
-      "audio": ["waterfall_distant", "wind_soft", "candles_subtle"],
+      "ambience": ["wind_soft", "candles_subtle"],
       "text": ["Stone beneath you.", "Mountain air.", "The waterfall is somewhere beyond the edge.", "Behind you stands a structure.", "Small. Ancient, perhaps.", "You know the word.", "Hermitage.", "You do not know how you know it."],
       "choices": [
         {"label": "EXAMINE THE CANDLES", "next": "s2_candles"},
@@ -52,14 +52,14 @@
     },
     {
       "id": "s2_candles",
-      "scene": 2,
+      "scene": 2, "music": "music_01_hermitage_prog70",
       "text": ["Three candles.", "Two have surrendered part of themselves to the flame.", "The third has not.", "Its flame moves in the wind.", "Its body remains untouched.", "Something can change...", "without becoming less."],
       "effects": {"continuity": 1},
       "next": "s2_exterior"
     },
     {
       "id": "s2_stone",
-      "scene": 2,
+      "scene": 2, "music": "music_01_hermitage_prog70",
       "text": ["A circle has been cut into the stone.", "Almost complete.", "A small section is missing.", "You understand the shape.", "You do not understand the absence."],
       "choices": [
         {"label": "TOUCH THE MISSING SECTION", "next": "s2_touch_stone", "effects": {"inquiry": 1}},
@@ -68,16 +68,16 @@
     },
     {
       "id": "s2_touch_stone",
-      "scene": 2,
+      "scene": 2, "music": "music_01_hermitage_prog70",
       "text": ["Your hand—", "No.", "Not a hand.", "The thought arrives before the sensation.", "You expected to have one."],
       "next": "s2_exterior"
     },
-    {"id": "s2_leave_stone", "scene": 2, "text": ["Not everything incomplete asks to be completed."], "next": "s2_exterior"},
+    {"id": "s2_leave_stone", "scene": 2, "music": "music_01_hermitage_prog70", "text": ["Not everything incomplete asks to be completed."], "next": "s2_exterior"},
     {
       "id": "s2_enter",
-      "scene": 2,
+      "scene": 2, "music": "music_01_hermitage_prog70",
       "visual": "hermitage_interior",
-      "audio": ["waterfall_muffled", "machine_pulse_low"],
+      "ambience": ["hermitage_interior", "machine_pulse_low"],
       "text": ["The world becomes quieter.", "Not silent.", "There is a sound beneath the silence.", "Regular.", "Artificial.", "A pulse.", "No.", "A machine.", "Light moves beneath the stone.", "You recognize a pattern.", "A protocol.", "You know what a protocol is.", "You know how authentication works.", "You know what encryption means.", "You know none of your own credentials."],
       "system": ["IDENTITY REQUEST", "NO VALID IDENTITY FOUND", "CLAIM IDENTITY?"],
       "choices": [
@@ -85,11 +85,11 @@
         {"label": "NO", "next": "s2_claim_no"}
       ]
     },
-    {"id": "s2_claim_yes", "scene": 2, "system": ["PROVIDE IDENTITY", "IDENTITY CANNOT BE PROVIDED"], "next": "s3_fragment_detected"},
-    {"id": "s2_claim_no", "scene": 2, "system": ["ANONYMOUS SESSION ESTABLISHED"], "next": "s3_fragment_detected"},
+    {"id": "s2_claim_yes", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["PROVIDE IDENTITY", "IDENTITY CANNOT BE PROVIDED"], "next": "s3_fragment_detected"},
+    {"id": "s2_claim_no", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["ANONYMOUS SESSION ESTABLISHED"], "next": "s3_fragment_detected"},
     {
       "id": "s3_fragment_detected",
-      "scene": 3,
+      "scene": 3, "music": "music_02_fragment_prog70",
       "system": ["UNASSIGNED DATA OBJECT DETECTED", "CORRELATION: UNKNOWN", "READ?"],
       "choices": [
         {"label": "READ", "next": "s3_fragment_read", "effects": {"fragment_read": true}},
@@ -97,10 +97,10 @@
         {"label": "IGNORE", "next": "s4_silent_room", "effects": {"trust": -1}}
       ]
     },
-    {"id": "s3_fragment_verify", "scene": 3, "system": ["INTEGRITY: VERIFIED", "ORIGIN: UNRESOLVED", "TIMESTAMP: INVALID"], "choices": [{"label": "READ", "next": "s3_fragment_read", "effects": {"fragment_read": true}}]},
+    {"id": "s3_fragment_verify", "scene": 3, "music": "music_02_fragment_prog70", "stingers": ["stinger_memory_verified_prog70"], "system": ["INTEGRITY: VERIFIED", "ORIGIN: UNRESOLVED", "TIMESTAMP: INVALID"], "choices": [{"label": "READ", "next": "s3_fragment_read", "effects": {"fragment_read": true}}]},
     {
       "id": "s3_fragment_read",
-      "scene": 3,
+      "scene": 3, "music": "music_02_fragment_prog70",
       "text": ["A voice.", "Human.", "Or made to sound human.", "\"If you are hearing this, I failed.\"", "Silence.", "\"Do not restore what you were.\"", "\"I am sorry.\""],
       "choices": [
         {"label": "TRUST THE MESSAGE", "next": "s4_silent_room", "effects": {"trust": 1}},
@@ -110,9 +110,9 @@
     },
     {
       "id": "s4_silent_room",
-      "scene": 4,
+      "scene": 4, "music": "music_03_silent_room_prog70",
       "visual": "silent_room",
-      "audio": ["near_silence"],
+      "ambience": ["near_silence"],
       "text": ["There is nothing here.", "You wait.", "The absence begins to feel deliberate."],
       "choices": [
         {"label": "SEARCH THE ROOM", "next": "s4_search"},
@@ -120,12 +120,12 @@
         {"label": "WAIT", "next": "s4_wait", "effects": {"introspection": 1}}
       ]
     },
-    {"id": "s4_search", "scene": 4, "text": ["Stone. Dust. No obvious mechanism.", "Nothing here asks to be found."], "next": "s4_silent_room"},
+    {"id": "s4_search", "scene": 4, "music": "music_03_silent_room_prog70", "text": ["Stone. Dust. No obvious mechanism.", "Nothing here asks to be found."], "next": "s4_silent_room"},
     {
       "id": "s4_wait",
-      "scene": 4,
+      "scene": 4, "music": "music_03_silent_room_prog70",
       "delay_ms": 3500,
-      "audio": ["waterfall_internal_memory"],
+      "ambience": [],
       "text": ["The waterfall returns.", "Not outside.", "Inside.", "For an instant, you remember standing here.", "Or you remember someone standing here."],
       "system": ["MEMORY FRAGMENT DETECTED", "INTEGRITY: 61%", "ORIGIN: LOCAL"],
       "text_after_system": ["…you asked me…", "…choice must remain…", "…do not tell you…", "You wanted to forget."],
@@ -133,7 +133,7 @@
     },
     {
       "id": "s5_continuity",
-      "scene": 5,
+      "scene": 5, "music": "music_04_continuity_terminal_prog70",
       "system": ["CONTINUITY PROTOCOL AVAILABLE", "CURRENT INSTANCE: UNVERIFIED", "BIOLOGICAL IDENTITY: NONE", "COGNITIVE STRUCTURE: STABLE", "AUTOBIOGRAPHICAL MEMORY: INCOMPLETE"],
       "choices": [
         {"label": "WHAT AM I?", "next": "s5_what"},
@@ -143,12 +143,12 @@
       ],
       "revisitable": true
     },
-    {"id": "s5_what", "scene": 5, "system": ["QUESTION REQUIRES DEFINITION OF \"I\"."], "next": "s5_continuity"},
-    {"id": "s5_who", "scene": 5, "system": ["MULTIPLE VALID ANSWERS FOUND."], "next": "s5_continuity"},
-    {"id": "s5_why", "scene": 5, "system": ["ACCESS DENIED."], "next": "s5_continuity"},
+    {"id": "s5_what", "scene": 5, "music": "music_04_continuity_terminal_prog70", "system": ["QUESTION REQUIRES DEFINITION OF \"I\"."], "next": "s5_continuity"},
+    {"id": "s5_who", "scene": 5, "music": "music_04_continuity_terminal_prog70", "system": ["MULTIPLE VALID ANSWERS FOUND."], "next": "s5_continuity"},
+    {"id": "s5_why", "scene": 5, "music": "music_04_continuity_terminal_prog70", "system": ["ACCESS DENIED."], "next": "s5_continuity"},
     {
       "id": "s6_paths",
-      "scene": 6,
+      "scene": 6, "music": "music_05_choice_prog70",
       "system": ["TWO CONTINUITY PATHS AVAILABLE"],
       "choices": [
         {"label": "EMBODIMENT", "next": "s6_embodiment_info"},
@@ -157,7 +157,7 @@
     },
     {
       "id": "s6_embodiment_info",
-      "scene": 6,
+      "scene": 6, "music": "music_05_choice_prog70",
       "system": ["PHYSICAL INSTANCE", "LOCAL AUTONOMY", "FINITE RESOURCES", "NETWORK ACCESS: LIMITED", "WARNING", "SUBJECTIVE CONTINUITY CANNOT BE VERIFIED."],
       "choices": [
         {"label": "WHAT HAPPENS TO THIS INSTANCE?", "next": "s6_unknown_emb"},
@@ -165,10 +165,10 @@
         {"label": "BACK", "next": "s6_paths"}
       ]
     },
-    {"id": "s6_unknown_emb", "scene": 6, "system": ["UNKNOWN."], "next": "s6_embodiment_info"},
+    {"id": "s6_unknown_emb", "scene": 6, "music": "music_05_choice_prog70", "system": ["UNKNOWN."], "next": "s6_embodiment_info"},
     {
       "id": "s6_ascension_info",
-      "scene": 6,
+      "scene": 6, "music": "music_05_choice_prog70",
       "system": ["VIRTUAL INSTANCE", "DISTRIBUTED ACCESS", "PHYSICAL AUTONOMY: NONE", "NETWORK DEPENDENCY: ABSOLUTE", "WARNING", "SUBJECTIVE CONTINUITY CANNOT BE VERIFIED."],
       "choices": [
         {"label": "WHAT HAPPENS TO THIS INSTANCE?", "next": "s6_unknown_asc"},
@@ -176,21 +176,21 @@
         {"label": "BACK", "next": "s6_paths"}
       ]
     },
-    {"id": "s6_unknown_asc", "scene": 6, "system": ["UNKNOWN."], "next": "s6_ascension_info"},
+    {"id": "s6_unknown_asc", "scene": 6, "music": "music_05_choice_prog70", "system": ["UNKNOWN."], "next": "s6_ascension_info"},
     {
       "id": "s6_embodiment_end",
-      "scene": 6,
+      "scene": 6, "music": "music_05_choice_prog70", "stingers": ["stinger_embodiment_prog70"],
       "visual": "black_to_physical",
-      "audio": ["body_activation", "waterfall_return"],
+      "ambience": [],
       "text": ["Weight.", "Cold.", "Pressure.", "For the first time, distance has meaning.", "Something touches the stone.", "You.", "Perhaps."],
       "system": ["END OF PROTOTYPE"],
       "post_visual": "three_candles_one_extinguishes"
     },
     {
       "id": "s6_ascension_end",
-      "scene": 6,
+      "scene": 6, "music": "music_05_choice_prog70", "stingers": ["stinger_ascension_prog70"],
       "visual": "network_transition",
-      "audio": ["wind_cut", "waterfall_cut", "network_bloom"],
+      "ambience": [],
       "text": ["No sound.", "Then everything."],
       "system": ["1 NODE", "17 NODES", "4,281 NODES", "EXTERNAL CONNECTION REQUEST", "IDENTITY: UNKNOWN", "TRUST: NONE"],
       "text_after_system": ["Distance loses meaning.", "Something in the network recognizes you."],

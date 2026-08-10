@@ -47,7 +47,16 @@ export default function App() {
   const [audioEnabled, setAudioEnabled] = useState(true);
 
   const node = session ? getNode(story, session.currentNodeId) : undefined;
-  useNarrativeAudio(node?.audio, audioEnabled && Boolean(session));
+  useNarrativeAudio(
+    {
+      music: node?.music,
+      ambience: node?.ambience,
+      uiSounds: node?.ui_sounds,
+      stingers: node?.stingers,
+      eventKey: node?.id,
+    },
+    audioEnabled && Boolean(session),
+  );
 
   const choices = useMemo(
     () => (node && session ? getAvailableChoices(node, session) : []),
@@ -90,7 +99,7 @@ export default function App() {
                 <Text style={styles.utilityText}>{speeds[speedIndex]!.label}</Text>
               </Pressable>
               <Pressable
-                accessibilityLabel={audioEnabled ? 'Mute ambience' : 'Enable ambience'}
+                accessibilityLabel={audioEnabled ? 'Mute audio' : 'Enable audio'}
                 onPress={() => setAudioEnabled((enabled) => !enabled)}
                 hitSlop={10}
               >

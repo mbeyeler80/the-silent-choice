@@ -1,23 +1,39 @@
 {
-  "version": "0.1",
+  "version": "0.2-prog70",
   "format": "PCM WAV mono 44.1kHz/16-bit",
-  "music": "none in prologue by design",
+  "categories": [
+    "music",
+    "environmental_ambience",
+    "ui_text_sounds",
+    "narrative_stingers"
+  ],
   "files": {
-    "01_waterfall_distant_loop.wav": "loop; scenes 1-2; distant waterfall",
-    "02_wind_soft_loop.wav": "loop; scenes 1-2; soft alpine wind",
-    "03_hermitage_interior_loop.wav": "loop; hermitage interior bed",
-    "04_machine_pulse_loop.wav": "loop; low artificial pulse beneath silence",
-    "05_silent_room_loop.wav": "loop; near-silence room tone",
-    "06_transition_embodiment.wav": "one-shot; EMBODIMENT transition",
-    "07_transition_ascension.wav": "one-shot; ASCENSION transition",
-    "08_candle_extinguish.wav": "one-shot; final candle extinguish"
+    "02_wind_soft_loop.wav": "environmental ambience; loop; scenes 1-2; soft alpine wind",
+    "03_hermitage_interior_loop.wav": "environmental ambience; loop; hermitage interior bed",
+    "04_machine_pulse_loop.wav": "environmental ambience; loop; low artificial pulse beneath silence",
+    "05_silent_room_loop.wav": "environmental ambience; loop; near-silence room tone",
+    "06_transition_embodiment.wav": "legacy narrative transition one-shot",
+    "07_transition_ascension.wav": "legacy narrative transition one-shot",
+    "08_candle_extinguish.wav": "UI/text one-shot; final candle extinguish"
+  },
+  "music": {
+    "music_01_hermitage_prog70.wav": "loop; scenes 1-2",
+    "music_02_fragment_prog70.wav": "loop; scene 3",
+    "music_03_silent_room_prog70.wav": "loop; scene 4",
+    "music_04_continuity_terminal_prog70.wav": "loop; scene 5",
+    "music_05_choice_prog70.wav": "loop; scene 6"
+  },
+  "narrative_stingers": {
+    "stinger_memory_verified_prog70.wav": "one-shot; verified memory",
+    "stinger_embodiment_prog70.wav": "one-shot; EMBODIMENT confirmation",
+    "stinger_ascension_prog70.wav": "one-shot; ASCENSION confirmation"
   },
   "mix_notes": [
     "Narrative text remains primary.",
-    "No music during the opening prototype.",
-    "Exterior: waterfall louder than wind.",
+    "Music fades in from silence and remains much lower than ambience and event sounds.",
+    "Music changes use an approximately two-second crossfade.",
     "Interior: exterior ambience should be strongly attenuated.",
     "Machine pulse should initially be barely perceptible.",
-    "Transitions may briefly dominate, then cut to the ending ambience."
+    "Narrative stingers may briefly rise above the music."
   ]
 }

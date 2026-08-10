@@ -38,6 +38,32 @@ describe('narrative graph', () => {
     expect(() => getNode(story, 'missing')).toThrow('Narrative node not found');
   });
 
+  it('maps music by scene and data-drives the requested narrative stingers', () => {
+    const expectedMusic = {
+      1: 'music_01_hermitage_prog70',
+      2: 'music_01_hermitage_prog70',
+      3: 'music_02_fragment_prog70',
+      4: 'music_03_silent_room_prog70',
+      5: 'music_04_continuity_terminal_prog70',
+      6: 'music_05_choice_prog70',
+    } as const;
+
+    for (const node of story.nodes) {
+      expect(node.music).toBe(expectedMusic[node.scene as keyof typeof expectedMusic]);
+      expect(node.ambience?.some((cue) => cue.includes('waterfall')) ?? false).toBe(false);
+    }
+
+    expect(getNode(story, 's3_fragment_verify').stingers).toEqual([
+      'stinger_memory_verified_prog70',
+    ]);
+    expect(getNode(story, 's6_embodiment_end').stingers).toEqual([
+      'stinger_embodiment_prog70',
+    ]);
+    expect(getNode(story, 's6_ascension_end').stingers).toEqual([
+      'stinger_ascension_prog70',
+    ]);
+  });
+
   it.each([
     ['EMBODIMENT', 's6_embodiment_end'],
     ['ASCENSION', 's6_ascension_end'],

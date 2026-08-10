@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-08-10 - Prog 70s music pack v0.2
+
+### Added
+- data-driven `music` asset IDs on every prologue node;
+- separate registries and playback paths for music, environmental ambience, UI/text sounds and narrative stingers;
+- approximately two-second music crossfades with a deliberately low music mix;
+- memory verification, EMBODIMENT and ASCENSION stingers from the Prog 70s pack;
+- regression coverage for scene-to-music and event-to-stinger mappings.
+- 42-second vertical promotional trailer and poster under `trailer/`.
+
+### Updated
+- migrated narrative ambience cues from the generic `audio` field to `ambience`.
+- removed waterfall playback cues from the prototype mix while preserving narrative text.
+
 ## 2026-08-10 - Prototype v0.1 specification
 
 ### Added

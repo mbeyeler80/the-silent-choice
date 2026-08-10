@@ -13,7 +13,10 @@ export interface NarrativeNode {
   scene: number;
   visual?: string;
   post_visual?: string;
-  audio?: string[];
+  music?: string;
+  ambience?: string[];
+  ui_sounds?: string[];
+  stingers?: string[];
   text?: string[];
   system?: string[];
   text_after_system?: string[];

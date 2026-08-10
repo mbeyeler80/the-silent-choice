@@ -96,3 +96,16 @@ Prevedere controlli separati per:
 - ambiente;
 - effetti sonori;
 - eventuali voci.
+
+## Prototype v0.1 - Prog 70s pack v0.2
+
+Nel prototype la musica è dichiarata nei nodi narrativi tramite asset ID e segue le sei scene: eremo (1-2), frammento (3), stanza silenziosa (4), terminale di continuità (5), scelta (6).
+
+La musica parte da volume zero, sale gradualmente e rimane molto bassa sotto testo, ambiente ed eventi. I cambi di traccia usano un crossfade di circa due secondi; la scena 4 conserva un livello ancora più contenuto.
+
+L'implementazione mantiene quattro canali distinti:
+
+1. musica;
+2. ambiente;
+3. suoni UI/testo;
+4. stinger narrativi.
