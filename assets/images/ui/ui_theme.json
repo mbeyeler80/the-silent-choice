@@ -1,0 +1,34 @@
+{
+  "project": "The Silent Choice",
+  "asset_pack": "v0.1",
+  "visual_style": "minimal contemplative alpine cyberpunk",
+  "colors": {
+    "stone_dark": "#0E1116",
+    "stone_medium": "#1A1F24",
+    "stone_light": "#2B3238",
+    "accent_warm": "#B58A58",
+    "accent_cold": "#5B6F7A",
+    "text_primary": "#E6E6E6",
+    "text_secondary": "#A0A3A8",
+    "ui_highlight": "#FFFFFF"
+  },
+  "typography": {
+    "narrative": {
+      "family": "Raleway",
+      "source": "@expo-google-fonts/raleway",
+      "weight": 400
+    },
+    "system": {
+      "family": "Space Mono",
+      "source": "@expo-google-fonts/space-mono",
+      "weight": 400
+    }
+  },
+  "rules": [
+    "Do not bundle font files in this asset pack.",
+    "Install fonts via Expo Google Fonts packages.",
+    "Narrative text is primary; system text uses monospace.",
+    "Warm accent for candle/embodiment.",
+    "Cold accent for network/ascension."
+  ]
+}

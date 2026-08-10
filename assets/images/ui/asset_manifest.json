@@ -1,0 +1,32 @@
+{
+  "images": [
+    "01_perception.png",
+    "02_hermitage.png",
+    "03_fragment.png",
+    "04_silent_room.png",
+    "05_continuity.png",
+    "06_choice.png"
+  ],
+  "icons": [
+    "icons/continuity.svg",
+    "icons/identity.svg",
+    "icons/memory.svg",
+    "icons/system.svg",
+    "icons/warning.svg",
+    "icons/access_denied.svg",
+    "icons/fragment.svg",
+    "icons/protocol.svg"
+  ],
+  "audio": [
+    "01_waterfall_distant_loop.wav",
+    "02_wind_soft_loop.wav",
+    "03_hermitage_interior_loop.wav",
+    "04_machine_pulse_loop.wav",
+    "05_silence_room_loop.wav",
+    "06_transition_embodiment.wav",
+    "07_transition_ascension.wav",
+    "08_candle_extinguish.wav"
+  ],
+  "theme": "ui_theme.json",
+  "font_note": "Font binaries intentionally not bundled. Use @expo-google-fonts/raleway and @expo-google-fonts/space-mono."
+}

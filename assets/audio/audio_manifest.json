@@ -1,0 +1,23 @@
+{
+  "version": "0.1",
+  "format": "PCM WAV mono 44.1kHz/16-bit",
+  "music": "none in prologue by design",
+  "files": {
+    "01_waterfall_distant_loop.wav": "loop; scenes 1-2; distant waterfall",
+    "02_wind_soft_loop.wav": "loop; scenes 1-2; soft alpine wind",
+    "03_hermitage_interior_loop.wav": "loop; hermitage interior bed",
+    "04_machine_pulse_loop.wav": "loop; low artificial pulse beneath silence",
+    "05_silent_room_loop.wav": "loop; near-silence room tone",
+    "06_transition_embodiment.wav": "one-shot; EMBODIMENT transition",
+    "07_transition_ascension.wav": "one-shot; ASCENSION transition",
+    "08_candle_extinguish.wav": "one-shot; final candle extinguish"
+  },
+  "mix_notes": [
+    "Narrative text remains primary.",
+    "No music during the opening prototype.",
+    "Exterior: waterfall louder than wind.",
+    "Interior: exterior ambience should be strongly attenuated.",
+    "Machine pulse should initially be barely perceptible.",
+    "Transitions may briefly dominate, then cut to the ending ambience."
+  ]
+}

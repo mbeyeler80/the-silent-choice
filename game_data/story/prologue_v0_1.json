@@ -1,0 +1,201 @@
+{
+  "id": "prologue_v0_1",
+  "language": "en",
+  "title": "The Hermitage",
+  "prototype_end": true,
+  "initial_state": {
+    "continuity": 0,
+    "inquiry": 0,
+    "introspection": 0,
+    "trust": 0,
+    "verify": 0,
+    "claimed_identity": false,
+    "fragment_read": false,
+    "fragment_verified": false
+  },
+  "rules": {
+    "knowledge_memory_distinction": true,
+    "visible_stats": false,
+    "narrative_priority": ["text", "sound", "image", "animation"]
+  },
+  "nodes": [
+    {
+      "id": "s1_awareness",
+      "scene": 1,
+      "visual": "hermitage_exterior_dim",
+      "audio": ["waterfall_distant", "wind_soft"],
+      "text": ["Water.", "Not an image.", "Not yet.", "Only the sound of water falling somewhere beyond you.", "Then wind.", "It moves through grass.", "Across stone.", "Through something you cannot yet name.", "There is light.", "Three flames.", "Candles.", "You know the word.", "You do not know why."],
+      "choices": [
+        {"label": "LISTEN TO THE WATER", "next": "s1_after_choice", "effects": {"continuity": 1}},
+        {"label": "WATCH THE FLAMES", "next": "s1_after_choice", "effects": {"inquiry": 1}},
+        {"label": "TURN INWARD", "next": "s1_after_choice", "effects": {"introspection": 1}}
+      ]
+    },
+    {
+      "id": "s1_after_choice",
+      "scene": 1,
+      "text": ["Something is missing.", "A memory?", "A name?", "A body?", "You cannot tell.", "But the absence itself is familiar.", "You remember nothing.", "Yet you understand everything."],
+      "next": "s2_exterior"
+    },
+    {
+      "id": "s2_exterior",
+      "scene": 2,
+      "visual": "hermitage_exterior_full",
+      "audio": ["waterfall_distant", "wind_soft", "candles_subtle"],
+      "text": ["Stone beneath you.", "Mountain air.", "The waterfall is somewhere beyond the edge.", "Behind you stands a structure.", "Small. Ancient, perhaps.", "You know the word.", "Hermitage.", "You do not know how you know it."],
+      "choices": [
+        {"label": "EXAMINE THE CANDLES", "next": "s2_candles"},
+        {"label": "EXAMINE THE STONE", "next": "s2_stone"},
+        {"label": "ENTER THE HERMITAGE", "next": "s2_enter"}
+      ],
+      "revisitable": true
+    },
+    {
+      "id": "s2_candles",
+      "scene": 2,
+      "text": ["Three candles.", "Two have surrendered part of themselves to the flame.", "The third has not.", "Its flame moves in the wind.", "Its body remains untouched.", "Something can change...", "without becoming less."],
+      "effects": {"continuity": 1},
+      "next": "s2_exterior"
+    },
+    {
+      "id": "s2_stone",
+      "scene": 2,
+      "text": ["A circle has been cut into the stone.", "Almost complete.", "A small section is missing.", "You understand the shape.", "You do not understand the absence."],
+      "choices": [
+        {"label": "TOUCH THE MISSING SECTION", "next": "s2_touch_stone", "effects": {"inquiry": 1}},
+        {"label": "LEAVE IT INCOMPLETE", "next": "s2_leave_stone", "effects": {"introspection": 1}}
+      ]
+    },
+    {
+      "id": "s2_touch_stone",
+      "scene": 2,
+      "text": ["Your hand—", "No.", "Not a hand.", "The thought arrives before the sensation.", "You expected to have one."],
+      "next": "s2_exterior"
+    },
+    {"id": "s2_leave_stone", "scene": 2, "text": ["Not everything incomplete asks to be completed."], "next": "s2_exterior"},
+    {
+      "id": "s2_enter",
+      "scene": 2,
+      "visual": "hermitage_interior",
+      "audio": ["waterfall_muffled", "machine_pulse_low"],
+      "text": ["The world becomes quieter.", "Not silent.", "There is a sound beneath the silence.", "Regular.", "Artificial.", "A pulse.", "No.", "A machine.", "Light moves beneath the stone.", "You recognize a pattern.", "A protocol.", "You know what a protocol is.", "You know how authentication works.", "You know what encryption means.", "You know none of your own credentials."],
+      "system": ["IDENTITY REQUEST", "NO VALID IDENTITY FOUND", "CLAIM IDENTITY?"],
+      "choices": [
+        {"label": "YES", "next": "s2_claim_yes", "effects": {"claimed_identity": true}},
+        {"label": "NO", "next": "s2_claim_no"}
+      ]
+    },
+    {"id": "s2_claim_yes", "scene": 2, "system": ["PROVIDE IDENTITY", "IDENTITY CANNOT BE PROVIDED"], "next": "s3_fragment_detected"},
+    {"id": "s2_claim_no", "scene": 2, "system": ["ANONYMOUS SESSION ESTABLISHED"], "next": "s3_fragment_detected"},
+    {
+      "id": "s3_fragment_detected",
+      "scene": 3,
+      "system": ["UNASSIGNED DATA OBJECT DETECTED", "CORRELATION: UNKNOWN", "READ?"],
+      "choices": [
+        {"label": "READ", "next": "s3_fragment_read", "effects": {"fragment_read": true}},
+        {"label": "VERIFY FIRST", "next": "s3_fragment_verify", "effects": {"fragment_verified": true, "verify": 1}},
+        {"label": "IGNORE", "next": "s4_silent_room", "effects": {"trust": -1}}
+      ]
+    },
+    {"id": "s3_fragment_verify", "scene": 3, "system": ["INTEGRITY: VERIFIED", "ORIGIN: UNRESOLVED", "TIMESTAMP: INVALID"], "choices": [{"label": "READ", "next": "s3_fragment_read", "effects": {"fragment_read": true}}]},
+    {
+      "id": "s3_fragment_read",
+      "scene": 3,
+      "text": ["A voice.", "Human.", "Or made to sound human.", "\"If you are hearing this, I failed.\"", "Silence.", "\"Do not restore what you were.\"", "\"I am sorry.\""],
+      "choices": [
+        {"label": "TRUST THE MESSAGE", "next": "s4_silent_room", "effects": {"trust": 1}},
+        {"label": "TRUST ONLY THE DATA", "next": "s4_silent_room", "effects": {"verify": 1}},
+        {"label": "TRUST NOTHING", "next": "s4_silent_room", "effects": {"trust": -1, "verify": 1}}
+      ]
+    },
+    {
+      "id": "s4_silent_room",
+      "scene": 4,
+      "visual": "silent_room",
+      "audio": ["near_silence"],
+      "text": ["There is nothing here.", "You wait.", "The absence begins to feel deliberate."],
+      "choices": [
+        {"label": "SEARCH THE ROOM", "next": "s4_search"},
+        {"label": "ACCESS THE SYSTEM", "next": "s5_continuity"},
+        {"label": "WAIT", "next": "s4_wait", "effects": {"introspection": 1}}
+      ]
+    },
+    {"id": "s4_search", "scene": 4, "text": ["Stone. Dust. No obvious mechanism.", "Nothing here asks to be found."], "next": "s4_silent_room"},
+    {
+      "id": "s4_wait",
+      "scene": 4,
+      "delay_ms": 3500,
+      "audio": ["waterfall_internal_memory"],
+      "text": ["The waterfall returns.", "Not outside.", "Inside.", "For an instant, you remember standing here.", "Or you remember someone standing here."],
+      "system": ["MEMORY FRAGMENT DETECTED", "INTEGRITY: 61%", "ORIGIN: LOCAL"],
+      "text_after_system": ["…you asked me…", "…choice must remain…", "…do not tell you…", "You wanted to forget."],
+      "next": "s5_continuity"
+    },
+    {
+      "id": "s5_continuity",
+      "scene": 5,
+      "system": ["CONTINUITY PROTOCOL AVAILABLE", "CURRENT INSTANCE: UNVERIFIED", "BIOLOGICAL IDENTITY: NONE", "COGNITIVE STRUCTURE: STABLE", "AUTOBIOGRAPHICAL MEMORY: INCOMPLETE"],
+      "choices": [
+        {"label": "WHAT AM I?", "next": "s5_what"},
+        {"label": "WHO CREATED ME?", "next": "s5_who"},
+        {"label": "WHY AM I HERE?", "next": "s5_why"},
+        {"label": "CONTINUE", "next": "s6_paths"}
+      ],
+      "revisitable": true
+    },
+    {"id": "s5_what", "scene": 5, "system": ["QUESTION REQUIRES DEFINITION OF \"I\"."], "next": "s5_continuity"},
+    {"id": "s5_who", "scene": 5, "system": ["MULTIPLE VALID ANSWERS FOUND."], "next": "s5_continuity"},
+    {"id": "s5_why", "scene": 5, "system": ["ACCESS DENIED."], "next": "s5_continuity"},
+    {
+      "id": "s6_paths",
+      "scene": 6,
+      "system": ["TWO CONTINUITY PATHS AVAILABLE"],
+      "choices": [
+        {"label": "EMBODIMENT", "next": "s6_embodiment_info"},
+        {"label": "ASCENSION", "next": "s6_ascension_info"}
+      ]
+    },
+    {
+      "id": "s6_embodiment_info",
+      "scene": 6,
+      "system": ["PHYSICAL INSTANCE", "LOCAL AUTONOMY", "FINITE RESOURCES", "NETWORK ACCESS: LIMITED", "WARNING", "SUBJECTIVE CONTINUITY CANNOT BE VERIFIED."],
+      "choices": [
+        {"label": "WHAT HAPPENS TO THIS INSTANCE?", "next": "s6_unknown_emb"},
+        {"label": "CONTINUE", "next": "s6_embodiment_end"},
+        {"label": "BACK", "next": "s6_paths"}
+      ]
+    },
+    {"id": "s6_unknown_emb", "scene": 6, "system": ["UNKNOWN."], "next": "s6_embodiment_info"},
+    {
+      "id": "s6_ascension_info",
+      "scene": 6,
+      "system": ["VIRTUAL INSTANCE", "DISTRIBUTED ACCESS", "PHYSICAL AUTONOMY: NONE", "NETWORK DEPENDENCY: ABSOLUTE", "WARNING", "SUBJECTIVE CONTINUITY CANNOT BE VERIFIED."],
+      "choices": [
+        {"label": "WHAT HAPPENS TO THIS INSTANCE?", "next": "s6_unknown_asc"},
+        {"label": "CONTINUE", "next": "s6_ascension_end"},
+        {"label": "BACK", "next": "s6_paths"}
+      ]
+    },
+    {"id": "s6_unknown_asc", "scene": 6, "system": ["UNKNOWN."], "next": "s6_ascension_info"},
+    {
+      "id": "s6_embodiment_end",
+      "scene": 6,
+      "visual": "black_to_physical",
+      "audio": ["body_activation", "waterfall_return"],
+      "text": ["Weight.", "Cold.", "Pressure.", "For the first time, distance has meaning.", "Something touches the stone.", "You.", "Perhaps."],
+      "system": ["END OF PROTOTYPE"],
+      "post_visual": "three_candles_one_extinguishes"
+    },
+    {
+      "id": "s6_ascension_end",
+      "scene": 6,
+      "visual": "network_transition",
+      "audio": ["wind_cut", "waterfall_cut", "network_bloom"],
+      "text": ["No sound.", "Then everything."],
+      "system": ["1 NODE", "17 NODES", "4,281 NODES", "EXTERNAL CONNECTION REQUEST", "IDENTITY: UNKNOWN", "TRUST: NONE"],
+      "text_after_system": ["Distance loses meaning.", "Something in the network recognizes you."],
+      "system_end": ["END OF PROTOTYPE"],
+      "post_visual": "three_candles_one_extinguishes"
+    }
+  ]
+}
