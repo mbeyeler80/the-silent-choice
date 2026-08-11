@@ -1,92 +1,98 @@
-# TextAdventure
+# The Silent Choice
 
+**The Silent Choice** is a mobile narrative text adventure set in a cyberpunk and posthuman future. It explores identity, freedom, control, spirituality, history, and philosophy through choices and consequences.
 
-Progetto di **avventura testuale narrativa per dispositivi mobili** ambientata in un futuro cyberpunk/postumano.
+## Core concept
 
+The player controls an abstract conscious entity that does not know its origin or its nature. Its search for identity is built around the **Ship of Theseus** paradox: recovering what it once was may transform what it has become.
 
-## Concept
+The central conflict is **freedom versus control**.
 
+## Opening
 
-Il giocatore controlla una entità cosciente astratta che non conosce la propria origine né la propria natura. La ricerca di sé è costruita attorno al paradosso della **Nave di Teseo**: recuperare ciò che si era può trasformare ciò che si è diventati.
+Consciousness first emerges near an isolated mountain hermitage. The first perceptions are a distant waterfall and the wind. Several candles are already burning. The entity does not know why it is there or where it should go.
 
+The prologue uses progressively revealed descriptive text. The expressive hierarchy of the project is:
 
-Conflitto centrale: **libertà / controllo**.
+**text > sound > image > animation**
 
+## Current status
 
-## Apertura
+**First Complete Playable Alpha 0.3.0**
 
+The playable journey includes:
 
-La prima presa di coscienza avviene presso un eremo isolato in alta montagna. Le prime percezioni sono il rumore di una cascata e il vento. Alcune candele sono già accese. Non è chiaro perché l'entità si trovi lì né dove debba andare.
+- a Prologue, five chapters, and a complete Finale;
+- eleven narrative puzzles;
+- six persistent decisions;
+- eight ending variants;
+- local autosave;
+- three continuity slots and chapter checkpoints.
 
+This alpha prioritizes a complete end-to-end experience. Some backgrounds and music tracks are intentional placeholders that will be refined after full playtesting.
 
-Il prologo usa testo descrittivo a scorrimento. Ordine di importanza espressiva:
+## Technology
 
-
-**testo > suono > immagine > animazione**.
-
-
-## Tecnologia prevista
-
-
-- Visual Studio Code;
 - React Native;
 - Expo;
 - TypeScript;
-- Git;
-- Codex come agente di sviluppo.
+- Git.
 
+## Run the mobile app
 
-## Documentazione principale
+### Requirements
 
+- Node.js and `pnpm`;
+- Android Studio with a configured emulator, or an Android phone with Expo Go.
 
-- `docs/vision.md` - visione del progetto;
-- `docs/design/game_design.md` - struttura dell'esperienza;
-- `docs/design/story.md` - trama e prologo;
-- `docs/design/world.md` - ambientazione;
-- `docs/design/characters.md` - protagonista e personaggi;
-- `docs/design/mechanics.md` - scelte, frammenti e identità;
-- `docs/design/ui_ux.md` - interfaccia mobile;
-- `docs/design/art_direction.md` - direzione visiva;
-- `docs/design/music_direction.md` - direzione sonora;
-- `docs/design/philosophical_framework.md` - quadro filosofico derivato anche dagli scritti dell'autore;
-- `docs/development/decisions.md` - decisioni canoniche;
-- `CHANGELOG.md` - cronologia.
-
-
-## Stato
-
-**First Complete Playable Alpha 0.3.0.**
-
-Il percorso giocabile comprende Prologo, cinque capitoli, Finale, undici puzzle complessivi, sei decisioni persistenti, otto varianti finali, autosave locale e tre slot di continuità.
-
-## Avvio dell'app mobile
-
-Requisiti: Node.js, `pnpm`, Android Studio con un emulatore configurato oppure un telefono Android con Expo Go.
-
-Installare le dipendenze dalla cartella del progetto:
+Install the project dependencies from the repository directory:
 
 ```powershell
 pnpm install
 ```
 
-### Emulatore Android
+### Android emulator
 
-Avviare prima l'emulatore da Android Studio, quindi eseguire:
+Start the emulator from Android Studio first, then run:
 
 ```powershell
 pnpm exec expo start --android --clear
 ```
 
-Se Metro è già avviato, premere `a` nel terminale per aprire il gioco nell'emulatore.
+If Metro is already running, press `a` in the terminal to open the game in the Android emulator.
 
-### Telefono Android con Expo Go
+### Physical Android device with Expo Go
 
-Con computer e telefono collegati alla stessa rete:
+Connect the computer and phone to the same network, then run:
 
 ```powershell
 pnpm exec expo start --clear
 ```
 
-Aprire Expo Go sul telefono e scansionare il codice QR mostrato da Metro.
+Open Expo Go on the phone and scan the QR code displayed by Metro.
 
-I dettagli della milestone e i placeholder intenzionali sono descritti in `docs/development/full_alpha_v0_3.md`.
+## Validation
+
+Run the TypeScript check and automated test suite with:
+
+```powershell
+pnpm run typecheck
+pnpm test
+```
+
+## Project documentation
+
+- `docs/vision.md` — project vision;
+- `docs/design/game_design.md` — experience structure;
+- `docs/design/story.md` — story and prologue;
+- `docs/design/world.md` — setting and recurring motifs;
+- `docs/design/characters.md` — protagonist and characters;
+- `docs/design/mechanics.md` — choices, fragments, and identity systems;
+- `docs/design/ui_ux.md` — mobile interface and accessibility;
+- `docs/design/art_direction.md` — visual direction;
+- `docs/design/music_direction.md` — music and sound direction;
+- `docs/design/philosophical_framework.md` — philosophical framework;
+- `docs/development/architecture.md` — application architecture;
+- `docs/development/decisions.md` — canonical development decisions;
+- `docs/development/full_alpha_v0_3.md` — alpha milestone scope and known placeholders;
+- `CHANGELOG.md` — project history.
