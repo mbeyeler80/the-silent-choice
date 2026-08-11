@@ -1,6 +1,6 @@
 # The Silent Choice
 
-**The Silent Choice** is a mobile narrative text adventure set in a cyberpunk and posthuman future. It explores identity, freedom, control, spirituality, history, and philosophy through choices and consequences.
+**The Silent Choice** is a narrative text adventure set in a cyberpunk and posthuman future. It explores identity, freedom, control, spirituality, history, and philosophy through choices and consequences.
 
 ## Core concept
 
@@ -10,7 +10,7 @@ The central conflict is **freedom versus control**.
 
 ## Opening
 
-Consciousness first emerges near an isolated mountain hermitage. The first perceptions are a distant waterfall and the wind. Several candles are already burning. The entity does not know why it is there or where it should go.
+Consciousness first emerges near an isolated mountain hermitage. The entity understands the world but remembers nothing about itself. Several candles are already burning, and no explanation is given for who lit them or why the entity is there.
 
 The prologue uses progressively revealed descriptive text. The expressive hierarchy of the project is:
 
@@ -31,11 +31,14 @@ The playable journey includes:
 
 This alpha prioritizes a complete end-to-end experience. Some backgrounds and music tracks are intentional placeholders that will be refined after full playtesting.
 
+The game is currently available as a free playable alpha for Android development builds and locally packaged Windows x64 builds.
+
 ## Technology
 
 - React Native;
 - Expo;
 - TypeScript;
+- Electron for the isolated Windows wrapper;
 - Git.
 
 ## Run the mobile app
@@ -71,6 +74,43 @@ pnpm exec expo start --clear
 
 Open Expo Go on the phone and scan the QR code displayed by Metro.
 
+## Run and package the Windows x64 app
+
+The Windows version uses a static Expo web export inside a separate Electron wrapper. Electron dependencies remain isolated under `desktop/` and do not affect the Android application.
+
+### Requirements
+
+- Windows x64;
+- Node.js and `pnpm`.
+
+Install both dependency sets:
+
+```powershell
+pnpm install
+pnpm --dir desktop install
+```
+
+Export the current game and launch it in Electron for local testing:
+
+```powershell
+pnpm run windows:web
+pnpm --dir desktop start
+```
+
+Create the Windows installer:
+
+```powershell
+pnpm run windows:make
+```
+
+The generated installer is written to:
+
+```text
+desktop/out/installer/TheSilentChoiceSetup.exe
+```
+
+Build outputs are intentionally excluded from Git and can be reproduced with the command above. The current alpha is not digitally signed, so Windows SmartScreen may display a warning. A public production release should use a code-signing certificate.
+
 ## Validation
 
 Run the TypeScript check and automated test suite with:
@@ -96,3 +136,9 @@ pnpm test
 - `docs/development/decisions.md` — canonical development decisions;
 - `docs/development/full_alpha_v0_3.md` — alpha milestone scope and known placeholders;
 - `CHANGELOG.md` — project history.
+
+## Authorship and license
+
+Created by **Marcel Beyeler**. Copyright © 2026 Marcel Beyeler.
+
+The game is free to play in its current alpha form. No open-source license is granted; all rights are reserved.

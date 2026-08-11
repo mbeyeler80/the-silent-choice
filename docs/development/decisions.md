@@ -64,3 +64,8 @@ Per la prima alpha sono accettati fondali riutilizzati e tracce procedurali prov
 **Decisione:** Last Allocation mantiene capacità, soglie e progressione esistenti, porta la finestra a 60 secondi per fase e rende visibili i minimi operativi, la capacità libera e gli scostamenti da correggere. Il giocatore non deve dedurre numeri nascosti.
 
 I quattro parametri vengono presentati come aspetti dell'identità: memoria, coerenza, relazione e continuità. Le tre riallocazioni esprimono che preservare un sé non significa conservare tutto: in condizioni diverse alcune parti devono contrarsi perché una continuità coerente possa sopravvivere. La spiegazione filosofica e le definizioni restano nei dati del puzzle, non nella logica React.
+## 2026-08-11 - Windows alpha packaging
+
+**Decisione:** la distribuzione Windows dell'alpha usa un contenitore Electron separato sotto desktop/, alimentato da un export web statico di Expo. Il target Android resta invariato e non importa dipendenze Electron.
+
+L'app desktop serve gli asset inclusi tramite un server HTTP limitato a 127.0.0.1, con isolamento del contesto e integrazione Node disattivata nella finestra di gioco. Electron Packager e Squirrel.Windows producono un installer x64; la firma del codice viene rimandata alla distribuzione pubblica. I tre font usati dalla interfaccia sono inclusi come asset locali con nomi brevi per rispettare i limiti dei percorsi Squirrel/NuGet.

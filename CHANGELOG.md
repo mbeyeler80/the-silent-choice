@@ -10,6 +10,7 @@
 - independent music, SFX, haptics and text-speed settings;
 - chapter/finale prototype music, four process-channel loops and narrative haptic cues;
 - automated coverage for the complete journey, puzzles, endings, saves and fallback behavior.
+- isolated Electron Packager/Squirrel wrapper and Expo web export path for a Windows x64 installer.
 
 ### Updated
 - application shell with main menu, archive, slot replacement flow and return-at-checkpoint behavior;

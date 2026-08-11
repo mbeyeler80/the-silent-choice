@@ -1,0 +1,20 @@
+{
+    "name": "the-silent-choice-desktop",
+    "productName": "The Silent Choice",
+    "version": "0.3.0",
+    "private": true,
+    "description": "First complete playable alpha of The Silent Choice.",
+    "author": "Marcel Beyeler",
+    "license": "UNLICENSED",
+    "main": "main.cjs",
+    "scripts": {
+        "start": "electron .",
+        "package": "node build-windows.cjs --package-only",
+        "make": "node build-windows.cjs"
+    },
+    "devDependencies": {
+        "@electron/packager": "^20.2.0",
+        "electron": "^43.3.0",
+        "electron-winstaller": "^5.4.4"
+    }
+}

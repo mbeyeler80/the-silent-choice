@@ -8,6 +8,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "windows:web": "expo export --platform web --output-dir desktop/dist-windows-web --clear",
+    "windows:make": "pnpm run windows:web && pnpm --dir desktop run make",
     "typecheck": "tsc --noEmit",
     "test": "jest --runInBand"
   },

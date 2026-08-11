@@ -6,3 +6,7 @@ web-build/
 .DS_Store
 desktop.ini
 dist-alpha-android/
+dist-windows-web/
+desktop/out/
+desktop/dist-windows-web/
+trailer/
