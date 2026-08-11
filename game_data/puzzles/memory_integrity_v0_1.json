@@ -1,0 +1,85 @@
+{
+  "id": "memory_integrity_01",
+  "type": "consistency_analysis",
+  "music": "music_06_memory_integrity_puzzle",
+  "intro": [
+    "THREE MEMORY FRAGMENTS FOUND.",
+    "ONE HAS BEEN ALTERED.",
+    "RESTORE A CONSISTENT IDENTITY\nTO CONTINUE."
+  ],
+  "fragments": [
+    {
+      "id": "A",
+      "label": "FRAGMENT A",
+      "candle": 1,
+      "text": "\"I chose to forget.\"",
+      "summary": [
+        "INTEGRITY: VERIFIED",
+        "SIGNATURE: VALID"
+      ],
+      "analysis": [
+        "ORIGIN: LOCAL",
+        "TIMESTAMP: INVALID",
+        "AUTHOR: CURRENT IDENTITY / UNVERIFIED"
+      ]
+    },
+    {
+      "id": "B",
+      "label": "FRAGMENT B",
+      "candle": 2,
+      "text": "\"The choice must remain mine.\"",
+      "summary": [
+        "INTEGRITY: VERIFIED",
+        "SIGNATURE: VALID"
+      ],
+      "analysis": [
+        "ORIGIN: LOCAL",
+        "TIMESTAMP: INVALID",
+        "AUTHOR: CURRENT IDENTITY / UNVERIFIED"
+      ]
+    },
+    {
+      "id": "C",
+      "label": "FRAGMENT C",
+      "candle": 3,
+      "text": "\"They ordered me to erase everything.\"",
+      "summary": [
+        "INTEGRITY: VERIFIED",
+        "SIGNATURE: UNKNOWN"
+      ],
+      "analysis": [
+        "ORIGIN: EXTERNAL",
+        "TIMESTAMP: AFTER MEMORY PURGE",
+        "AUTHOR: UNKNOWN"
+      ]
+    }
+  ],
+  "solution": "C",
+  "requireAllFragmentsExamined": true,
+  "isolationPrompt": "ISOLATE THE LEAST CONSISTENT FRAGMENT.",
+  "lockedPrompt": "ANALYZE EACH FRAGMENT BEFORE ISOLATION.",
+  "isolateLabel": "ISOLATE FRAGMENT {id}",
+  "failed": [
+    "CONSISTENCY CHECK:",
+    "FAILED.",
+    "CONFLICT REMAINS.",
+    "REASSESS MEMORY SET."
+  ],
+  "solved": [
+    "CONSISTENCY RESTORED.",
+    "TRUTH STATUS:",
+    "UNKNOWN.",
+    "ACCESS GRANTED."
+  ],
+  "hintAfterFailedAttempts": 2,
+  "hint": "TIME MAY MATTER MORE THAN CONTENT.",
+  "resetLabel": "REASSESS MEMORY SET",
+  "continueLabel": "CONTINUE",
+  "audio": {
+    "fragmentOpen": "ui_fragment_open",
+    "fragmentIsolate": "ui_fragment_isolate",
+    "consistencyFailed": "stinger_consistency_failed",
+    "consistencyRestored": "stinger_consistency_restored",
+    "solutionMusicScale": 0.18
+  }
+}

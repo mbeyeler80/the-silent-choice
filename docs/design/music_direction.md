@@ -109,3 +109,12 @@ L'implementazione mantiene quattro canali distinti:
 2. ambiente;
 3. suoni UI/testo;
 4. stinger narrativi.
+
+
+## Memory integrity puzzle soundtrack
+
+music_06_memory_integrity_puzzle.wav accompagna esclusivamente il puzzle. E un loop originale di 35 secondi in 7/8, molto discreto, con organo soffuso, texture Mellotron-like, synth analogico e basso pulsante leggero. Non usa batteria rock evidente, assoli, chitarre protagoniste o hiss continuo.
+
+L'ingresso usa lo stesso crossfade di circa due secondi. Durante l'analisi la musica continua sotto i cue UI; un tentativo fallito usa una breve dissonanza non arcade. Alla soluzione il bed viene abbassato rapidamente, lo stinger di consistenza viene riprodotto e il passaggio alla scena 3 ripristina il normale crossfade.
+
+Il livello registry della traccia e 0.12; sulla soluzione viene applicata una scala temporanea 0.18, mantenendo testo e segnali di sistema in primo piano.

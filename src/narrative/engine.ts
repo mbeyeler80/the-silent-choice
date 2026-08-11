@@ -1,3 +1,5 @@
+import { activatePuzzle, getPuzzleProgress } from '../puzzles/engine';
+
 import type {
   Effects,
   HiddenState,
@@ -73,6 +75,7 @@ export function createSession(story: NarrativeStory, startedAtMs = Date.now()): 
     selectedChoiceKeys: [],
     appliedNodeEffectIds: [],
     choiceHistory: [],
+    puzzleState: {},
     startedAtMs,
   };
   return enterNode(story, session, firstNode.id);
@@ -99,6 +102,9 @@ export function enterNode(
     appliedNodeEffectIds: shouldApplyNodeEffects
       ? [...session.appliedNodeEffectIds, node.id]
       : session.appliedNodeEffectIds,
+    puzzleState: node.puzzle
+      ? activatePuzzle(session.puzzleState, node.puzzle)
+      : session.puzzleState,
   };
 
   logDevelopment('node', { id: node.id, scene: node.scene });
@@ -150,6 +156,9 @@ export function selectChoice(
 
 export function advance(story: NarrativeStory, session: NarrativeSession): NarrativeSession {
   const node = getNode(story, session.currentNodeId);
+  if (node.puzzle && getPuzzleProgress(session.puzzleState, node.puzzle).status !== 'solved') {
+    throw new Error(`Puzzle must be solved before leaving node: ${node.id}`);
+  }
   if (!node.next) throw new Error(`Node has no automatic next target: ${node.id}`);
   return enterNode(story, session, node.next);
 }

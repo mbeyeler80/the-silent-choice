@@ -11,17 +11,24 @@ import {
 
 import { getContentBlocks } from '../narrative/content';
 import type { NarrativeChoice, NarrativeNode } from '../narrative/types';
+import type { ConsistencyPuzzleDefinition, PuzzleFragmentId, PuzzleProgress } from '../puzzles/types';
 import { colors, typography } from '../theme';
 import { useTextReveal } from '../hooks/useTextReveal';
 import { ChoiceList } from './ChoiceList';
 import { ContentFeed } from './ContentFeed';
+import { MemoryIntegrityPuzzle } from './MemoryIntegrityPuzzle';
 import { SceneImage } from './SceneImage';
 
 interface Props {
   node: NarrativeNode;
   choices: NarrativeChoice[];
+  puzzle?: ConsistencyPuzzleDefinition;
+  puzzleProgress?: PuzzleProgress;
   speedMs: number;
   onChoice: (choice: NarrativeChoice) => void;
+  onPuzzleExamine: (fragmentId: PuzzleFragmentId) => void;
+  onPuzzleIsolate: (fragmentId: PuzzleFragmentId) => void;
+  onPuzzleReset: () => void;
   onAdvance: () => void;
   onRestart: () => void;
   onEndingRevealed: () => void;
@@ -31,14 +38,19 @@ interface Props {
 export function NarrativeScreen({
   node,
   choices,
+  puzzle,
+  puzzleProgress,
   speedMs,
   onChoice,
+  onPuzzleExamine,
+  onPuzzleIsolate,
+  onPuzzleReset,
   onAdvance,
   onRestart,
   onEndingRevealed,
   isEnding,
 }: Props) {
-  const blocks = getContentBlocks(node);
+  const blocks = getContentBlocks(node, puzzle);
   const reveal = useTextReveal(node.id, blocks, speedMs, node.delay_ms ?? 0);
   const scrollRef = useRef<ScrollView>(null);
   const effectiveVisual = reveal.complete && node.post_visual ? node.post_visual : node.visual;
@@ -74,11 +86,22 @@ export function NarrativeScreen({
           {!reveal.complete && <Text style={styles.tapHint}>TAP TO REVEAL</Text>}
         </Pressable>
 
-        {reveal.complete && choices.length > 0 && (
+        {reveal.complete && puzzle && puzzleProgress && (
+          <MemoryIntegrityPuzzle
+            definition={puzzle}
+            progress={puzzleProgress}
+            onExamine={onPuzzleExamine}
+            onIsolate={onPuzzleIsolate}
+            onReset={onPuzzleReset}
+            onContinue={onAdvance}
+          />
+        )}
+
+        {reveal.complete && !puzzle && choices.length > 0 && (
           <ChoiceList choices={choices} onSelect={onChoice} />
         )}
 
-        {reveal.complete && choices.length === 0 && node.next && (
+        {reveal.complete && !puzzle && choices.length === 0 && node.next && (
           <Pressable
             accessibilityRole="button"
             onPress={onAdvance}

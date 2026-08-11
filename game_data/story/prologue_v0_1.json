@@ -85,8 +85,16 @@
         {"label": "NO", "next": "s2_claim_no"}
       ]
     },
-    {"id": "s2_claim_yes", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["PROVIDE IDENTITY", "IDENTITY CANNOT BE PROVIDED"], "next": "s3_fragment_detected"},
-    {"id": "s2_claim_no", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["ANONYMOUS SESSION ESTABLISHED"], "next": "s3_fragment_detected"},
+    {"id": "s2_claim_yes", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["PROVIDE IDENTITY", "IDENTITY CANNOT BE PROVIDED"], "next": "s2_memory_integrity"},
+    {"id": "s2_claim_no", "scene": 2, "music": "music_01_hermitage_prog70", "system": ["ANONYMOUS SESSION ESTABLISHED"], "next": "s2_memory_integrity"},
+    {
+      "id": "s2_memory_integrity",
+      "scene": 2,
+      "puzzle": "memory_integrity_01",
+      "visual": "hermitage_interior",
+      "ambience": ["hermitage_interior", "machine_pulse_low"],
+      "next": "s3_fragment_detected"
+    },
     {
       "id": "s3_fragment_detected",
       "scene": 3, "music": "music_02_fragment_prog70",

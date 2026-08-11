@@ -35,3 +35,14 @@ Gli stinger Prog 70s sono associati alla verifica della memoria e alle conferme 
 **Decisione:** il suono della cascata viene rimosso dal mix del prototype. La cascata resta un elemento narrativo e simbolico presente nel testo, ma i relativi cue ambientali non vengono caricati o riprodotti.
 
 Restano attivi vento, ambiente interno, impulso macchina, musica e stinger narrativi.
+
+
+## 2026-08-11 - Memory integrity consistency puzzle
+
+**Decisione:** dopo il primo scambio di identita con il terminale, il prologo inserisce un puzzle data-driven di analisi della consistenza prima della scena 3. La definizione vive in game_data/puzzles/memory_integrity_v0_1.json; la UI interpreta i dati e non contiene il testo o la soluzione del puzzle.
+
+Il principio canonico introdotto e: **integrity/provenance verification != truth**. Il sistema puo identificare un frammento meno coerente con la sequenza corrente, ma non certifica che sia falso. Per questo la soluzione dichiara "TRUTH STATUS: UNKNOWN." e non usa giudizi come "CORRECT".
+
+Il puzzle usa stato separato dal narrative state e dall'audio state. Vengono conservati frammenti esaminati, numero di tentativi, numero di fallimenti, primo isolamento tentato e frammento finale isolato. Il narrative engine impedisce di lasciare il nodo finche il puzzle non e risolto.
+
+Il motivo delle tre candele e reso nella stessa interfaccia terminale: la luce associata a un tentativo si spegne, torna lentamente dopo un reset fallito e resta spenta quando C viene isolato. La musica del puzzle e un asset dedicato e data-driven; UI cues e stinger rimangono categorie audio separate.

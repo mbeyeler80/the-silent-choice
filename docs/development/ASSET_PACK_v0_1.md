@@ -1,45 +1,52 @@
 # Asset Pack v0.1
 
 ## Scene images
-Drive path: `assets/images/backgrounds/`
+Project path: assets/images/backgrounds/
 
-- `01_perception.png`
-- `02_hermitage.png`
-- `03_fragment.png`
-- `04_silent_room.png`
-- `05_continuity.png`
-- `06_choice.png`
+- 01_perception.png
+- 02_hermitage.png
+- 03_fragment.png
+- 04_silent_room.png
+- 05_continuity.png
+- 06_choice.png
 
 These are 1920x1080 prototype images in one coherent minimal alpine/posthuman visual language.
 
 ## UI
-Drive path: `assets/images/ui/`
+Project path: assets/images/ui/
 
-- `ui_style_reference_v0_1.png` — visual reference board
-- `ui_assets_v0_1.zip` — SVG icons, `ui_theme.json`, and asset manifest
+- ui_style_reference_v0_1.png - visual reference board
+- ui_assets_v0_1.zip - SVG icons, ui_theme.json, and asset manifest
 
-Extract the ZIP into the local project asset tree before wiring UI components.
+The terminal UI is rendered natively so text remains editable, accessible and localizable.
 
 ## Audio
-Drive path: `assets/audio/sfx/`
+Project paths: assets/audio/music/, assets/audio/sfx/, assets/audio/ui/, assets/audio/stingers/.
 
-- `01_waterfall_distant_loop.wav`
-- `02_wind_soft_loop.wav`
-- `03_hermitage_interior_loop.wav`
-- `04_machine_pulse_loop.wav`
-- `05_silence_room_loop.wav`
-- `06_transition_embodiment.wav`
-- `07_transition_ascension.wav`
-- `08_candle_extinguish.wav`
+The registry keeps four categories separate:
 
-The first five are ambience/loops; the last three are one-shots/transitions.
+- music;
+- environmental ambience;
+- UI/text sounds;
+- narrative stingers.
+
+The memory integrity puzzle adds:
+
+- music_06_memory_integrity_puzzle.wav;
+- ui_fragment_open.wav;
+- ui_fragment_isolate.wav;
+- stinger_consistency_failed.wav;
+- stinger_consistency_restored.wav.
+
+The waterfall file may remain in the asset pack but is intentionally absent from the active prototype registry and mix.
 
 ## Fonts
-Drive path: `assets/fonts/FONT_USAGE.md`
+Project path: assets/fonts/FONT_USAGE.md
 
 Do not expect bundled font binaries. Use:
-- `@expo-google-fonts/raleway` for narrative/UI text
-- `@expo-google-fonts/space-mono` for terminal/system text
+
+- @expo-google-fonts/raleway for narrative/UI text;
+- @expo-google-fonts/space-mono for terminal/system text.
 
 ## Implementation rule
-The prototype must degrade gracefully when an asset is missing, but these v0.1 files should be used by default. Keep narrative text out of images when possible; system UI should be rendered natively so it remains editable and localizable.
+The prototype must degrade gracefully when an asset is missing. Keep narrative text out of images when possible; system UI should be rendered natively so it remains editable and localizable.

@@ -1,3 +1,5 @@
+import type { PuzzleState } from '../puzzles/types';
+
 export type HiddenValue = number | boolean;
 export type HiddenState = Record<string, HiddenValue>;
 export type Effects = Record<string, HiddenValue>;
@@ -11,6 +13,7 @@ export interface NarrativeChoice {
 export interface NarrativeNode {
   id: string;
   scene: number;
+  puzzle?: string;
   visual?: string;
   post_visual?: string;
   music?: string;
@@ -62,6 +65,7 @@ export interface NarrativeSession {
   selectedChoiceKeys: string[];
   appliedNodeEffectIds: string[];
   choiceHistory: ChoiceRecord[];
+  puzzleState: PuzzleState;
   startedAtMs: number;
 }
 

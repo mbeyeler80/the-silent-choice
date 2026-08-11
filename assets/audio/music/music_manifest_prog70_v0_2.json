@@ -1,16 +1,18 @@
 {
-  "version": "0.2-prog70",
+  "version": "0.2-prog70+puzzle",
   "concept": "Original minimal cyber-spiritual soundtrack using 1970s progressive-rock vocabulary: modal harmony, Mellotron-like pads, organ, analog synth, sparse 7/8 and 5/4. No direct imitation of any specific band.",
   "mix": {
     "music_gain": 0.12,
     "environment_gain": 0.1,
-    "crossfade_seconds": 2.0
+    "crossfade_seconds": 2,
+    "puzzle_solution_scale": 0.18
   },
   "placement": {
     "music_01_hermitage_prog70.wav": "Scenes 1-2",
     "music_02_fragment_prog70.wav": "Scene 3",
     "music_03_silent_room_prog70.wav": "Scene 4",
     "music_04_continuity_terminal_prog70.wav": "Scene 5",
-    "music_05_choice_prog70.wav": "Scene 6"
+    "music_05_choice_prog70.wav": "Scene 6",
+    "music_06_memory_integrity_puzzle.wav": "Memory integrity puzzle between scenes 2 and 3"
   }
 }

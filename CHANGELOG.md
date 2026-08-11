@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-08-11 - Memory integrity puzzle
+
+### Added
+- reusable, data-driven consistency puzzle format under game_data/puzzles/;
+- terminal interaction with three inspectable memory fragments and three fading candle lights;
+- persistent puzzle state for examined fragments, attempts, first isolation and final isolated fragment;
+- a dedicated 35-second low-volume 7/8 puzzle loop, two UI cues and two narrative stingers;
+- engine-level progression guard and regression tests for activation, failure, reset and solution.
+
+### Updated
+- inserted the puzzle after the first terminal identity exchange and before scene 3 without changing existing prose, choices or endings;
+- extended narrative audio with solution ducking while preserving the existing two-second music crossfade.
+
 ## 2026-08-10 - Prog 70s music pack v0.2
 
 ### Added

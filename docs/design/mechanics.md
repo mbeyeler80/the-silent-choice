@@ -103,3 +103,11 @@ Non è previsto, al momento, un sistema di combattimento complesso. Se in futuro
 
 
 Da prevedere salvataggio automatico dopo scelte significative e possibilità di riprendere rapidamente la sessione su mobile.
+
+## Memory integrity puzzle
+
+Il primo terminale interrompe il prologo con un'analisi di consistenza su tre frammenti. Il giocatore deve esaminare provenance, timestamp e author, poi isolare il frammento meno coerente con la sequenza corrente.
+
+La meccanica non determina vero o falso: una firma valida dimostra integrita/provenienza nei limiti del sistema, non verita. Anche la soluzione conserva esplicitamente "TRUTH STATUS: UNKNOWN."
+
+Lo stato del puzzle resta separato dagli assi narrativi nascosti e conserva frammenti esaminati, tentativi totali e falliti, primo tentativo di isolamento e frammento finale isolato. Questi dati sono disponibili per conseguenze narrative future.

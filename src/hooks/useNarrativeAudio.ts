@@ -10,13 +10,16 @@ import {
 } from '../assets/registry';
 
 const MUSIC_CROSSFADE_MS = 2000;
+const MUSIC_DUCK_MS = 300;
 const FADE_STEP_MS = 50;
 
 interface NarrativeAudio {
   music?: string;
+  musicVolumeScale?: number;
   ambience?: string[];
   uiSounds?: string[];
   stingers?: string[];
+  stingerDelayMs?: number;
   eventKey?: string;
 }
 
@@ -48,7 +51,7 @@ function createPlayers(
     const asset = resolve(id);
     if (!asset) {
       if (typeof __DEV__ !== 'undefined' && __DEV__) {
-        console.info(`[audio:${category}] placeholder: ${id}`);
+        console.info('[audio:' + category + '] placeholder: ' + id);
       }
       continue;
     }
@@ -61,7 +64,7 @@ function createPlayers(
       players.push(player);
     } catch (error) {
       if (typeof __DEV__ !== 'undefined' && __DEV__) {
-        console.warn(`[audio:${category}] ${id}`, error);
+        console.warn('[audio:' + category + '] ' + id, error);
       }
     }
   }
@@ -73,14 +76,18 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
   const ambiencePlayers = useRef<AudioPlayer[]>([]);
   const uiPlayers = useRef<AudioPlayer[]>([]);
   const stingerPlayers = useRef<AudioPlayer[]>([]);
+  const stingerTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const activeMusic = useRef<ActiveMusic | undefined>(undefined);
   const fadingOutMusic = useRef<AudioPlayer | undefined>(undefined);
   const musicFade = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+  const musicMixFade = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
   const latestAmbience = useRef<string[] | undefined>(undefined);
+  const lastMusicVolumeScale = useRef(audio.musicVolumeScale ?? 1);
 
   const ambienceKey = audio.ambience?.join('|') ?? '__inherit__';
   const uiKey = audio.uiSounds?.join('|') ?? '';
   const stingerKey = audio.stingers?.join('|') ?? '';
+  const musicVolumeScale = Math.max(0, Math.min(1, audio.musicVolumeScale ?? 1));
 
   useEffect(() => {
     void setAudioModeAsync({ playsInSilentMode: true, interruptionMode: 'mixWithOthers' });
@@ -88,6 +95,9 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
 
   useEffect(() => {
     if (musicFade.current) clearInterval(musicFade.current);
+    if (musicMixFade.current) clearInterval(musicMixFade.current);
+    musicFade.current = undefined;
+    musicMixFade.current = undefined;
     if (fadingOutMusic.current) release([fadingOutMusic.current]);
     fadingOutMusic.current = undefined;
 
@@ -98,13 +108,14 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
     }
 
     if (activeMusic.current?.id === audio.music) return;
+    lastMusicVolumeScale.current = musicVolumeScale;
 
     const outgoing = activeMusic.current;
     const asset = audio.music ? resolveMusic(audio.music) : undefined;
     let incoming: ActiveMusic | undefined;
 
     if (audio.music && !asset && typeof __DEV__ !== 'undefined' && __DEV__) {
-      console.info(`[audio:music] placeholder: ${audio.music}`);
+      console.info('[audio:music] placeholder: ' + audio.music);
     }
 
     if (asset) {
@@ -116,7 +127,7 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
         incoming = { id: audio.music!, player, targetVolume: asset.volume };
       } catch (error) {
         if (typeof __DEV__ !== 'undefined' && __DEV__) {
-          console.warn(`[audio:music] ${audio.music}`, error);
+          console.warn('[audio:music] ' + audio.music, error);
         }
       }
     }
@@ -129,7 +140,9 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
     musicFade.current = setInterval(() => {
       const progress = Math.min(1, (Date.now() - startedAt) / MUSIC_CROSSFADE_MS);
       if (outgoing) outgoing.player.volume = outgoingStartVolume * (1 - progress);
-      if (incoming) incoming.player.volume = incoming.targetVolume * progress;
+      if (incoming) {
+        incoming.player.volume = incoming.targetVolume * musicVolumeScale * progress;
+      }
 
       if (progress >= 1) {
         if (musicFade.current) clearInterval(musicFade.current);
@@ -138,7 +151,30 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
         fadingOutMusic.current = undefined;
       }
     }, FADE_STEP_MS);
-  }, [audio.music, enabled]);
+  }, [audio.music, enabled, musicVolumeScale]);
+
+  useEffect(() => {
+    if (lastMusicVolumeScale.current === musicVolumeScale) return;
+    lastMusicVolumeScale.current = musicVolumeScale;
+
+    const active = activeMusic.current;
+    if (!enabled || !active) return;
+
+    if (musicMixFade.current) clearInterval(musicMixFade.current);
+    const startedAt = Date.now();
+    const startVolume = active.player.volume;
+    const targetVolume = active.targetVolume * musicVolumeScale;
+
+    musicMixFade.current = setInterval(() => {
+      const progress = Math.min(1, (Date.now() - startedAt) / MUSIC_DUCK_MS);
+      active.player.volume = startVolume + (targetVolume - startVolume) * progress;
+
+      if (progress >= 1) {
+        if (musicMixFade.current) clearInterval(musicMixFade.current);
+        musicMixFade.current = undefined;
+      }
+    }, FADE_STEP_MS);
+  }, [enabled, musicVolumeScale]);
 
   useEffect(() => {
     if (audio.ambience !== undefined) latestAmbience.current = audio.ambience;
@@ -157,25 +193,41 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
       resolveEnvironmentalAmbience,
       'ambience',
     );
-  }, [ambienceKey, enabled, audio.ambience]);
+  }, [ambienceKey, enabled]);
 
   useEffect(() => {
     release(uiPlayers.current);
     uiPlayers.current = enabled
       ? createPlayers(audio.uiSounds ?? [], resolveUiTextSound, 'ui')
       : [];
-  }, [audio.eventKey, enabled, uiKey, audio.uiSounds]);
+  }, [audio.eventKey, enabled, uiKey]);
 
   useEffect(() => {
+    if (stingerTimer.current) clearTimeout(stingerTimer.current);
+    stingerTimer.current = undefined;
     release(stingerPlayers.current);
-    stingerPlayers.current = enabled
-      ? createPlayers(audio.stingers ?? [], resolveNarrativeStinger, 'stinger')
-      : [];
-  }, [audio.eventKey, enabled, stingerKey, audio.stingers]);
+    stingerPlayers.current = [];
+
+    if (!enabled) return;
+    const playStingers = () => {
+      stingerPlayers.current = createPlayers(
+        audio.stingers ?? [],
+        resolveNarrativeStinger,
+        'stinger',
+      );
+    };
+    if ((audio.stingerDelayMs ?? 0) > 0) {
+      stingerTimer.current = setTimeout(playStingers, audio.stingerDelayMs);
+    } else {
+      playStingers();
+    }
+  }, [audio.eventKey, audio.stingerDelayMs, enabled, stingerKey]);
 
   useEffect(
     () => () => {
       if (musicFade.current) clearInterval(musicFade.current);
+      if (musicMixFade.current) clearInterval(musicMixFade.current);
+      if (stingerTimer.current) clearTimeout(stingerTimer.current);
       release([
         ...ambiencePlayers.current,
         ...uiPlayers.current,

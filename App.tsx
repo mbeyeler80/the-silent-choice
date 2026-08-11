@@ -7,9 +7,10 @@ import {
   SpaceMono_400Regular,
   useFonts as useSpaceMonoFonts,
 } from '@expo-google-fonts/space-mono';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { SafeAreaView, StatusBar, StyleSheet, Text, Pressable, View } from 'react-native';
 
+import memoryIntegrityData from './game_data/puzzles/memory_integrity_v0_1.json';
 import storyData from './game_data/story/prologue_v0_1.json';
 import { resolveVisual } from './src/assets/registry';
 import { NarrativeScreen } from './src/components/NarrativeScreen';
@@ -26,10 +27,33 @@ import {
   validateStory,
 } from './src/narrative/engine';
 import type { NarrativeChoice, NarrativeSession, NarrativeStory } from './src/narrative/types';
+import {
+  examinePuzzleFragment,
+  getPuzzleProgress,
+  isolatePuzzleFragment,
+  resetPuzzleAttempt,
+  validatePuzzle,
+} from './src/puzzles/engine';
+import type {
+  ConsistencyPuzzleDefinition,
+  PuzzleFragmentId,
+} from './src/puzzles/types';
 import { colors, typography } from './src/theme';
 
 const story = storyData as NarrativeStory;
-const validationErrors = validateStory(story);
+const memoryIntegrityPuzzle = memoryIntegrityData as ConsistencyPuzzleDefinition;
+const puzzlesById: Record<string, ConsistencyPuzzleDefinition> = {
+  [memoryIntegrityPuzzle.id]: memoryIntegrityPuzzle,
+};
+const validationErrors = [
+  ...validateStory(story),
+  ...validatePuzzle(memoryIntegrityPuzzle),
+  ...story.nodes.flatMap((node) =>
+    node.puzzle && !puzzlesById[node.puzzle]
+      ? [`${node.id} references missing puzzle: ${node.puzzle}`]
+      : [],
+  ),
+];
 if (validationErrors.length > 0) throw new Error(validationErrors.join('\n'));
 
 const speeds = [
@@ -39,21 +63,42 @@ const speeds = [
   { label: 'INSTANT', ms: 0 },
 ] as const;
 
+interface TransientAudioEvent {
+  id: number;
+  nodeId: string;
+  uiSounds?: string[];
+  stingers?: string[];
+  stingerDelayMs?: number;
+}
+
 export default function App() {
   const [ralewayLoaded] = useRalewayFonts({ Raleway_400Regular, Raleway_500Medium });
   const [spaceMonoLoaded] = useSpaceMonoFonts({ SpaceMono_400Regular });
   const [session, setSession] = useState<NarrativeSession | null>(null);
   const [speedIndex, setSpeedIndex] = useState(1);
   const [audioEnabled, setAudioEnabled] = useState(true);
+  const [audioEvent, setAudioEvent] = useState<TransientAudioEvent>();
+  const audioEventId = useRef(0);
 
   const node = session ? getNode(story, session.currentNodeId) : undefined;
+  const puzzle = node?.puzzle ? puzzlesById[node.puzzle] : undefined;
+  const puzzleProgress = puzzle && session
+    ? getPuzzleProgress(session.puzzleState, puzzle.id)
+    : undefined;
+  const activeAudioEvent = audioEvent?.nodeId === node?.id ? audioEvent : undefined;
+
   useNarrativeAudio(
     {
-      music: node?.music,
+      music: puzzle?.music ?? node?.music,
       ambience: node?.ambience,
-      uiSounds: node?.ui_sounds,
-      stingers: node?.stingers,
-      eventKey: node?.id,
+      uiSounds: [...(node?.ui_sounds ?? []), ...(activeAudioEvent?.uiSounds ?? [])],
+      stingers: [...(node?.stingers ?? []), ...(activeAudioEvent?.stingers ?? [])],
+      eventKey: `${node?.id ?? 'inactive'}:${activeAudioEvent?.id ?? 'node'}`,
+      stingerDelayMs: activeAudioEvent?.stingerDelayMs,
+      musicVolumeScale:
+        puzzle && puzzleProgress?.status === 'solved'
+          ? puzzle.audio.solutionMusicScale
+          : 1,
     },
     audioEnabled && Boolean(session),
   );
@@ -63,8 +108,33 @@ export default function App() {
     [node, session],
   );
 
-  const start = useCallback(() => setSession(createSession(story)), []);
-  const restart = useCallback(() => setSession(null), []);
+  const emitAudio = useCallback(
+    (
+      nodeId: string,
+      uiSounds?: string[],
+      stingers?: string[],
+      stingerDelayMs?: number,
+    ) => {
+      audioEventId.current += 1;
+      setAudioEvent({
+        id: audioEventId.current,
+        nodeId,
+        uiSounds,
+        stingers,
+        stingerDelayMs,
+      });
+    },
+    [],
+  );
+
+  const start = useCallback(() => {
+    setAudioEvent(undefined);
+    setSession(createSession(story));
+  }, []);
+  const restart = useCallback(() => {
+    setAudioEvent(undefined);
+    setSession(null);
+  }, []);
   const choose = useCallback(
     (choice: NarrativeChoice) => setSession((current) => selectChoice(story, current!, choice)),
     [],
@@ -73,6 +143,42 @@ export default function App() {
     () => setSession((current) => advance(story, current!)),
     [],
   );
+  const examinePuzzle = useCallback(
+    (fragmentId: PuzzleFragmentId) => {
+      if (!session || !node || !puzzle) return;
+      setSession({
+        ...session,
+        puzzleState: examinePuzzleFragment(session.puzzleState, puzzle, fragmentId),
+      });
+      emitAudio(node.id, [puzzle.audio.fragmentOpen]);
+    },
+    [emitAudio, node, puzzle, session],
+  );
+  const isolatePuzzle = useCallback(
+    (fragmentId: PuzzleFragmentId) => {
+      if (!session || !node || !puzzle) return;
+      const result = isolatePuzzleFragment(session.puzzleState, puzzle, fragmentId);
+      setSession({ ...session, puzzleState: result.state });
+      emitAudio(
+        node.id,
+        [puzzle.audio.fragmentIsolate],
+        [
+          result.outcome === 'solved'
+            ? puzzle.audio.consistencyRestored
+            : puzzle.audio.consistencyFailed,
+        ],
+        result.outcome === 'solved' ? 240 : 0,
+      );
+    },
+    [emitAudio, node, puzzle, session],
+  );
+  const resetPuzzle = useCallback(() => {
+    if (!session || !puzzle) return;
+    setSession({
+      ...session,
+      puzzleState: resetPuzzleAttempt(session.puzzleState, puzzle.id),
+    });
+  }, [puzzle, session]);
   const endingRevealed = useCallback(() => {
     if (session) logEnding(session);
   }, [session]);
@@ -110,8 +216,13 @@ export default function App() {
           <NarrativeScreen
             node={node}
             choices={choices}
+            puzzle={puzzle}
+            puzzleProgress={puzzleProgress}
             speedMs={speeds[speedIndex]!.ms}
             onChoice={choose}
+            onPuzzleExamine={examinePuzzle}
+            onPuzzleIsolate={isolatePuzzle}
+            onPuzzleReset={resetPuzzle}
             onAdvance={continueStory}
             onRestart={restart}
             onEndingRevealed={endingRevealed}

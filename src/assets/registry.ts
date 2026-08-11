@@ -43,7 +43,18 @@ const environmentalAmbience: Record<string, AudioAsset> = {
   near_silence: { source: silence, loop: true, volume: 0.1 },
 };
 
-const uiTextSounds: Record<string, AudioAsset> = {};
+const uiTextSounds: Record<string, AudioAsset> = {
+  ui_fragment_open: {
+    source: require('../../assets/audio/ui/ui_fragment_open.wav'),
+    loop: false,
+    volume: 0.34,
+  },
+  ui_fragment_isolate: {
+    source: require('../../assets/audio/ui/ui_fragment_isolate.wav'),
+    loop: false,
+    volume: 0.38,
+  },
+};
 
 const narrativeStingers: Record<string, AudioAsset> = {
   body_activation: { source: embodiment, loop: false, volume: 0.72 },
@@ -62,6 +73,16 @@ const narrativeStingers: Record<string, AudioAsset> = {
     source: require('../../assets/audio/music/stinger_ascension_prog70.wav'),
     loop: false,
     volume: 0.48,
+  },
+  stinger_consistency_failed: {
+    source: require('../../assets/audio/stingers/stinger_consistency_failed.wav'),
+    loop: false,
+    volume: 0.4,
+  },
+  stinger_consistency_restored: {
+    source: require('../../assets/audio/stingers/stinger_consistency_restored.wav'),
+    loop: false,
+    volume: 0.44,
   },
 };
 
@@ -88,6 +109,11 @@ const music: Record<string, AudioAsset> = {
   },
   music_05_choice_prog70: {
     source: require('../../assets/audio/music/music_05_choice_prog70.wav'),
+    loop: true,
+    volume: 0.12,
+  },
+  music_06_memory_integrity_puzzle: {
+    source: require('../../assets/audio/music/music_06_memory_integrity_puzzle.wav'),
     loop: true,
     volume: 0.12,
   },

@@ -1,3 +1,4 @@
+import memoryIntegrityData from '../game_data/puzzles/memory_integrity_v0_1.json';
 import storyData from '../game_data/story/prologue_v0_1.json';
 import {
   advance,
@@ -7,15 +8,34 @@ import {
   selectChoice,
   validateStory,
 } from '../src/narrative/engine';
+import {
+  examinePuzzleFragment,
+  isolatePuzzleFragment,
+} from '../src/puzzles/engine';
 import type { NarrativeSession, NarrativeStory } from '../src/narrative/types';
+import type { ConsistencyPuzzleDefinition } from '../src/puzzles/types';
 
 const story = storyData as NarrativeStory;
+const memoryIntegrityPuzzle = memoryIntegrityData as ConsistencyPuzzleDefinition;
 
 function choose(session: NarrativeSession, label: string): NarrativeSession {
   const node = getNode(story, session.currentNodeId);
   const choice = getAvailableChoices(node, session).find((candidate) => candidate.label === label);
-  if (!choice) throw new Error(`Missing choice at ${node.id}: ${label}`);
+  if (!choice) throw new Error('Missing choice at ' + node.id + ': ' + label);
   return selectChoice(story, session, choice, 1000);
+}
+
+function solveMemoryIntegrityPuzzle(session: NarrativeSession): NarrativeSession {
+  let puzzleState = session.puzzleState;
+  for (const fragment of memoryIntegrityPuzzle.fragments) {
+    puzzleState = examinePuzzleFragment(puzzleState, memoryIntegrityPuzzle, fragment.id);
+  }
+  puzzleState = isolatePuzzleFragment(
+    puzzleState,
+    memoryIntegrityPuzzle,
+    memoryIntegrityPuzzle.solution,
+  ).state;
+  return { ...session, puzzleState };
 }
 
 function reachContinuityChoice(): NarrativeSession {
@@ -24,6 +44,8 @@ function reachContinuityChoice(): NarrativeSession {
   session = advance(story, session);
   session = choose(session, 'ENTER THE HERMITAGE');
   session = choose(session, 'NO');
+  session = advance(story, session);
+  session = solveMemoryIntegrityPuzzle(session);
   session = advance(story, session);
   session = choose(session, 'IGNORE');
   session = choose(session, 'ACCESS THE SYSTEM');
@@ -38,6 +60,13 @@ describe('narrative graph', () => {
     expect(() => getNode(story, 'missing')).toThrow('Narrative node not found');
   });
 
+  it('places the memory integrity puzzle after terminal access and before scene 3', () => {
+    expect(getNode(story, 's2_claim_yes').next).toBe('s2_memory_integrity');
+    expect(getNode(story, 's2_claim_no').next).toBe('s2_memory_integrity');
+    expect(getNode(story, 's2_memory_integrity').puzzle).toBe(memoryIntegrityPuzzle.id);
+    expect(getNode(story, 's2_memory_integrity').next).toBe('s3_fragment_detected');
+  });
+
   it('maps music by scene and data-drives the requested narrative stingers', () => {
     const expectedMusic = {
       1: 'music_01_hermitage_prog70',
@@ -49,10 +78,15 @@ describe('narrative graph', () => {
     } as const;
 
     for (const node of story.nodes) {
-      expect(node.music).toBe(expectedMusic[node.scene as keyof typeof expectedMusic]);
+      if (node.puzzle) {
+        expect(node.music).toBeUndefined();
+      } else {
+        expect(node.music).toBe(expectedMusic[node.scene as keyof typeof expectedMusic]);
+      }
       expect(node.ambience?.some((cue) => cue.includes('waterfall')) ?? false).toBe(false);
     }
 
+    expect(memoryIntegrityPuzzle.music).toBe('music_06_memory_integrity_puzzle');
     expect(getNode(story, 's3_fragment_verify').stingers).toEqual([
       'stinger_memory_verified_prog70',
     ]);
