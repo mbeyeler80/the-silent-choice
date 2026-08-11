@@ -78,6 +78,12 @@ Open Expo Go on the phone and scan the QR code displayed by Metro.
 
 The Windows version uses a static Expo web export inside a separate Electron wrapper. Electron dependencies remain isolated under `desktop/` and do not affect the Android application.
 
+### Prebuilt alpha installer
+
+[Download TheSilentChoiceSetup-0.3.0-alpha.exe](releases/windows/TheSilentChoiceSetup-0.3.0-alpha.exe)
+
+SHA-256: `32591673ABBC42BB38C50B3AB20E7FF035D4BC2FD4A87F7C0197E33905883113`
+
 ### Requirements
 
 - Windows x64;
