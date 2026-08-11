@@ -1,4 +1,5 @@
 import { activatePuzzle, getPuzzleProgress } from '../puzzles/engine';
+import { resolveEnding } from './ending';
 
 import type {
   Effects,
@@ -10,12 +11,12 @@ import type {
   StateChange,
 } from './types';
 
-const choiceKey = (nodeId: string, label: string) => `${nodeId}::${label}`;
+const choiceKey = (nodeId: string, label: string) => nodeId + '::' + label;
 
 export function getNode(story: NarrativeStory, nodeId: string): NarrativeNode {
   const node = story.nodes.find((candidate) => candidate.id === nodeId);
   if (!node) {
-    throw new Error(`Narrative node not found: ${nodeId}`);
+    throw new Error('Narrative node not found: ' + nodeId);
   }
   return node;
 }
@@ -25,14 +26,16 @@ export function validateStory(story: NarrativeStory): string[] {
   const ids = new Set<string>();
 
   for (const node of story.nodes) {
-    if (ids.has(node.id)) errors.push(`Duplicate node id: ${node.id}`);
+    if (ids.has(node.id)) errors.push('Duplicate node id: ' + node.id);
     ids.add(node.id);
   }
 
   for (const node of story.nodes) {
     const targets = [node.next, ...(node.choices?.map((choice) => choice.next) ?? [])];
     for (const target of targets) {
-      if (target && !ids.has(target)) errors.push(`${node.id} references missing node: ${target}`);
+      if (target && !ids.has(target)) {
+        errors.push(node.id + ' references missing node: ' + target);
+      }
     }
   }
 
@@ -60,7 +63,7 @@ export function applyEffects(
 
 function logDevelopment(event: string, payload: unknown): void {
   if (typeof __DEV__ !== 'undefined' && __DEV__) {
-    console.info(`[narrative] ${event}`, payload);
+    console.info('[narrative] ' + event, payload);
   }
 }
 
@@ -71,11 +74,14 @@ export function createSession(story: NarrativeStory, startedAtMs = Date.now()): 
   const session: NarrativeSession = {
     currentNodeId: firstNode.id,
     hiddenState: { ...story.initial_state },
+    decisions: {},
+    telemetry: {},
     visitedNodeIds: [],
     selectedChoiceKeys: [],
     appliedNodeEffectIds: [],
     choiceHistory: [],
     puzzleState: {},
+    playTimeSeconds: 0,
     startedAtMs,
   };
   return enterNode(story, session, firstNode.id);
@@ -107,8 +113,12 @@ export function enterNode(
       : session.puzzleState,
   };
 
-  logDevelopment('node', { id: node.id, scene: node.scene });
+  logDevelopment('node', { id: node.id, scene: node.scene, chapter: node.chapter });
   if (result.changes.length) logDevelopment('state', result.changes);
+
+  if (node.ending_resolver) {
+    return enterNode(story, nextSession, resolveEnding(nextSession.decisions).nodeId);
+  }
   return nextSession;
 }
 
@@ -119,7 +129,9 @@ export function getAvailableChoices(
   const choices = node.choices ?? [];
   if (!node.revisitable) return choices;
   return choices.filter(
-    (choice) => !session.selectedChoiceKeys.includes(choiceKey(node.id, choice.label)),
+    (choice) =>
+      choice.action === 'RETURN_TO_MENU' ||
+      !session.selectedChoiceKeys.includes(choiceKey(node.id, choice.label)),
   );
 }
 
@@ -131,8 +143,12 @@ export function selectChoice(
 ): NarrativeSession {
   const node = getNode(story, session.currentNodeId);
   const available = getAvailableChoices(node, session);
-  if (!available.some((candidate) => candidate.label === choice.label && candidate.next === choice.next)) {
-    throw new Error(`Choice is not available at ${node.id}: ${choice.label}`);
+  if (
+    !available.some(
+      (candidate) => candidate.label === choice.label && candidate.next === choice.next,
+    )
+  ) {
+    throw new Error('Choice is not available at ' + node.id + ': ' + choice.label);
   }
 
   const result = applyEffects(session.hiddenState, choice.effects);
@@ -140,6 +156,9 @@ export function selectChoice(
   const updated: NarrativeSession = {
     ...session,
     hiddenState: result.state,
+    decisions: choice.decision
+      ? { ...session.decisions, [choice.decision.key]: choice.decision.value }
+      : session.decisions,
     selectedChoiceKeys: session.selectedChoiceKeys.includes(selectedKey)
       ? session.selectedChoiceKeys
       : [...session.selectedChoiceKeys, selectedKey],
@@ -150,6 +169,7 @@ export function selectChoice(
   };
 
   logDevelopment('choice', { node: node.id, label: choice.label, next: choice.next });
+  if (choice.decision) logDevelopment('decision', choice.decision);
   if (result.changes.length) logDevelopment('state', result.changes);
   return enterNode(story, updated, choice.next);
 }
@@ -157,19 +177,20 @@ export function selectChoice(
 export function advance(story: NarrativeStory, session: NarrativeSession): NarrativeSession {
   const node = getNode(story, session.currentNodeId);
   if (node.puzzle && getPuzzleProgress(session.puzzleState, node.puzzle).status !== 'solved') {
-    throw new Error(`Puzzle must be solved before leaving node: ${node.id}`);
+    throw new Error('Puzzle must be solved before leaving node: ' + node.id);
   }
-  if (!node.next) throw new Error(`Node has no automatic next target: ${node.id}`);
+  if (!node.next) throw new Error('Node has no automatic next target: ' + node.id);
   return enterNode(story, session, node.next);
 }
 
 export function isEnding(node: NarrativeNode): boolean {
-  return !node.next && (node.choices?.length ?? 0) === 0;
+  return !node.next && (node.choices?.length ?? 0) === 0 && !node.ending_resolver;
 }
 
 export function logEnding(session: NarrativeSession): void {
   logDevelopment('ending', {
     node: session.currentNodeId,
+    decisions: session.decisions,
     path: session.choiceHistory.map((choice) => choice.label),
     hiddenState: session.hiddenState,
     elapsedMs: Date.now() - session.startedAtMs,

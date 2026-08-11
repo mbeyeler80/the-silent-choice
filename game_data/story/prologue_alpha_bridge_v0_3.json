@@ -1,0 +1,35 @@
+{
+  "overrides": [
+    {
+      "id": "s6_paths",
+      "chapter": "PROLOGUE",
+      "chapter_title": "THE AWAKENING",
+      "choices": [
+        {
+          "label": "EMBODIMENT",
+          "next": "s6_embodiment_info",
+          "decision": {"key": "ontology", "value": "EMBODIMENT"}
+        },
+        {
+          "label": "ASCENSION",
+          "next": "s6_ascension_info",
+          "decision": {"key": "ontology", "value": "ASCENSION"}
+        }
+      ]
+    },
+    {
+      "id": "s6_embodiment_end",
+      "chapter": "PROLOGUE",
+      "chapter_title": "THE AWAKENING",
+      "system": ["PHYSICAL CONTINUITY ESTABLISHED."],
+      "next": "checkpoint_prologue"
+    },
+    {
+      "id": "s6_ascension_end",
+      "chapter": "PROLOGUE",
+      "chapter_title": "THE AWAKENING",
+      "system_end": ["DISTRIBUTED CONTINUITY ESTABLISHED."],
+      "next": "checkpoint_prologue"
+    }
+  ]
+}

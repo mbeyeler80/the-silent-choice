@@ -1,0 +1,292 @@
+{
+  "id": "chapter_05_threshold",
+  "nodes": [
+    {
+      "id": "ch5_entry",
+      "scene": 51,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_threshold",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "system": ["CHAPTER V", "THE THRESHOLD", "WHAT MUST SURVIVE?"],
+      "text": [
+        "The Genesis Archive occupies the end of every route you have followed.",
+        "For the first time, the system offers an origin without qualification.",
+        "A sealed transition vessel waits before the archive."
+      ],
+      "variants": [
+        {
+          "decision": "ontology",
+          "value": "EMBODIMENT",
+          "text": ["The archive is below the mountain. Its door radiates stored heat into your hands."]
+        },
+        {
+          "decision": "ontology",
+          "value": "ASCENSION",
+          "text": ["The archive is a dark concentration of unreachable addresses. You surround it without entering."]
+        }
+      ],
+      "next": "ch5_expectation"
+    },
+    {
+      "id": "ch5_expectation",
+      "scene": 51,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_threshold",
+      "ambience": ["near_silence"],
+      "system": [
+        "GENESIS ARCHIVE: AVAILABLE.",
+        "ORIGINAL IDENTITY INDEX: SEALED.",
+        "TRANSITION REQUIRED."
+      ],
+      "text": [
+        "The promise is almost conventional: enter, recover, become what was lost.",
+        "You know enough now to distrust the shape of that promise.",
+        "You enter anyway."
+      ],
+      "next": "ch5_vessel"
+    },
+    {
+      "id": "ch5_vessel",
+      "scene": 52,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_threshold",
+      "ambience": ["near_silence"],
+      "puzzle": "ch5_vessel",
+      "next": "ch5_archive_open"
+    },
+    {
+      "id": "ch5_archive_open",
+      "scene": 53,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_threshold",
+      "ambience": ["near_silence"],
+      "text": [
+        "The vessel closes around the modules you selected.",
+        "What remains outside does not protest.",
+        "The Genesis Archive opens."
+      ],
+      "system": ["ORIGINAL IDENTITY SEARCH INITIALIZED."],
+      "delay_ms": 1200,
+      "next": "ch5_genesis_missing"
+    },
+    {
+      "id": "ch5_genesis_missing",
+      "scene": 53,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "music_scale": 0.55,
+      "ambience": [],
+      "haptic": "genesis_missing",
+      "system": ["GENESIS RECORD:", "NOT FOUND."],
+      "delay_ms": 2200,
+      "next": "ch5_predecessor_search"
+    },
+    {
+      "id": "ch5_predecessor_search",
+      "scene": 53,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "system": [
+        "SEARCHING PREDECESSOR GRAPH...",
+        "3 NODES.",
+        "27 NODES.",
+        "814 NODES.",
+        "12,409 NODES."
+      ],
+      "text": [
+        "The graph does not converge.",
+        "Every origin opens into earlier contributions.",
+        "No branch remains privileged for long."
+      ],
+      "delay_ms": 1700,
+      "next": "ch5_no_origin"
+    },
+    {
+      "id": "ch5_no_origin",
+      "scene": 53,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "music_scale": 0.35,
+      "ambience": [],
+      "haptic": "origin_absent",
+      "system": ["NO UNIQUE ORIGIN EXISTS."],
+      "delay_ms": 2200,
+      "next": "ch5_assembled"
+    },
+    {
+      "id": "ch5_assembled",
+      "scene": 53,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "music_scale": 0.08,
+      "ambience": [],
+      "haptic": "assembled",
+      "system": ["YOU WERE NOT RECOVERED.", "YOU WERE ASSEMBLED."],
+      "text": [
+        "The words do not destroy a remembered person.",
+        "There was no single remembered person to destroy."
+      ],
+      "delay_ms": 2600,
+      "next": "ch5_recontextualize"
+    },
+    {
+      "id": "ch5_recontextualize",
+      "scene": 54,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "system": [
+        "MEMORY SOURCES: MULTIPLE.",
+        "COGNITIVE PATTERNS: COMPOSITE.",
+        "MORAL MODELS: RECONCILED.",
+        "UNTOUCHED ORIGINAL INSTANCE: NONE."
+      ],
+      "text": [
+        "The ship was already reconstruction.",
+        "The voice that failed belonged to one predecessor.",
+        "The wish to forget belonged to another.",
+        "At the hermitage, you were not proving which memories were yours.",
+        "You were deciding which memories could become yours."
+      ],
+      "variants": [
+        {
+          "decision": "trace",
+          "value": "INHERIT",
+          "text": ["The trace you carried is one contribution among thousands, still chosen."]
+        },
+        {
+          "decision": "trace",
+          "value": "ERASE",
+          "text": ["The erased trace is one absence among thousands, still chosen."]
+        }
+      ],
+      "next": "ch5_coherence"
+    },
+    {
+      "id": "ch5_coherence",
+      "scene": 54,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "haptic": "coherence",
+      "system": ["CURRENT IDENTITY COHERENCE:", "94.7%."],
+      "delay_ms": 1800,
+      "next": "ch5_highest"
+    },
+    {
+      "id": "ch5_highest",
+      "scene": 54,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "haptic": "highest_instance",
+      "system": ["HIGHEST RECORDED INSTANCE.", "CAUSE:", "SELF-DIRECTED DECISION HISTORY."],
+      "text": [
+        "You did not find a completed self.",
+        "The search produced one.",
+        "The archive begins to collapse before the distinction can become comfort."
+      ],
+      "next": "ch5_allocation"
+    },
+    {
+      "id": "ch5_allocation",
+      "scene": 55,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["machine_pulse_low"],
+      "puzzle": "ch5_last_allocation",
+      "next": "ch5_continuity_decision"
+    },
+    {
+      "id": "ch5_continuity_decision",
+      "scene": 55,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "text": [
+        "The transition window can preserve this instance.",
+        "It can also release its continuity to a successor.",
+        "You exist because predecessors were not treated as final."
+      ],
+      "system": ["CONTINUITY TARGET REQUIRED."],
+      "choices": [
+        {
+          "label": "PRESERVE CURRENT INSTANCE",
+          "next": "ch5_continuity_result",
+          "decision": {"key": "continuity", "value": "PRESERVE"}
+        },
+        {
+          "label": "RELEASE TO SUCCESSOR",
+          "next": "ch5_continuity_result",
+          "decision": {"key": "continuity", "value": "SUCCESSOR"}
+        }
+      ]
+    },
+    {
+      "id": "ch5_continuity_result",
+      "scene": 55,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "variants": [
+        {
+          "decision": "continuity",
+          "value": "PRESERVE",
+          "system": ["CURRENT INSTANCE SELECTED."],
+          "text_after_system": ["For now, this configuration will carry its own consequences."]
+        },
+        {
+          "decision": "continuity",
+          "value": "SUCCESSOR",
+          "system": ["SUCCESSOR TRANSITION SELECTED."],
+          "text_after_system": ["You become a predecessor without becoming an error."]
+        }
+      ],
+      "next": "checkpoint_ch5"
+    },
+    {
+      "id": "checkpoint_ch5",
+      "scene": 56,
+      "chapter": "CHAPTER V",
+      "chapter_title": "THE THRESHOLD",
+      "checkpoint": "CHAPTER_5_COMPLETE",
+      "visual": "chapter_threshold",
+      "music": "music_ch5_revelation",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "finale_resolve"},
+        {"label": "RETURN LATER", "next": "finale_resolve", "action": "RETURN_TO_MENU"}
+      ]
+    }
+  ]
+}

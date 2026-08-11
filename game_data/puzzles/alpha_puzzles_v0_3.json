@@ -1,0 +1,396 @@
+{
+  "version": "0.3.0-alpha",
+  "puzzles": [
+    {
+      "id": "ch1_map_path",
+      "type": "path_trace",
+      "title": "THE MAP",
+      "music": "music_ch1_path",
+      "intro": [
+        "TOPOLOGY INCOMPLETE.",
+        "TRACE A COHERENT ROUTE."
+      ],
+      "instructions": [
+        "The runoff reaches infrastructure before the archive.",
+        "The damaged relay cannot climb directly.",
+        "High ground still carries an archive handshake."
+      ],
+      "hint": "A route can follow evidence without knowing its destination.",
+      "failed": ["ROUTE INCOMPLETE.", "RESET AVAILABLE."],
+      "solved": ["ROUTE COHERENCE ESTABLISHED.", "DESTINATION REMAINS INTERPRETIVE."],
+      "resetLabel": "CLEAR TRACE",
+      "continueLabel": "FOLLOW ROUTE",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "failed": "stinger_consistency_failed",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "nodes": [
+          {"id": "source", "label": "SOURCE", "meta": ["LOCAL SIGNAL"]},
+          {"id": "high", "label": "HIGH GROUND", "meta": ["UPLINK TRACE"]},
+          {"id": "water", "label": "WATER", "meta": ["RUNOFF VECTOR"]},
+          {"id": "archive", "label": "ARCHIVE NODE", "meta": ["DORMANT HANDSHAKE"]},
+          {"id": "relay", "label": "BROKEN RELAY", "meta": ["ROUTE DAMAGE"]}
+        ],
+        "solution": ["source", "water", "relay", "high", "archive"]
+      }
+    },
+    {
+      "id": "ch1_waypoints",
+      "type": "ordering",
+      "title": "THE WAYPOINTS",
+      "music": "music_ch1_path",
+      "intro": [
+        "FIVE TRACES RECOVERED.",
+        "RECONSTRUCT THE MOST COHERENT SEQUENCE."
+      ],
+      "instructions": [
+        "Snowmelt precedes relay corrosion.",
+        "The archive handshake follows the climb.",
+        "One timestamp is older than its own signing key."
+      ],
+      "hint": "Order events by dependency when clocks cannot be trusted.",
+      "failed": ["SEQUENCE REMAINS INCOHERENT.", "REORDER AND VERIFY."],
+      "solved": ["WAYPOINT SEQUENCE STABILIZED.", "ONE CHRONOLOGY ANOMALY RETAINED."],
+      "resetLabel": "RESTORE INITIAL ORDER",
+      "continueLabel": "CONTINUE DESCENT",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "failed": "stinger_consistency_failed",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "items": [
+          {"id": "melt", "label": "RUNOFF ENTERS CONDUIT", "text": "Mineral trace: fresh."},
+          {"id": "relay", "label": "RELAY LOSES POWER", "text": "Corrosion follows sustained flow."},
+          {"id": "climb", "label": "UPLINK SEEKS HIGH GROUND", "text": "Automatic reroute."},
+          {"id": "handshake", "label": "ARCHIVE HANDSHAKE", "text": "Key issued after the request it signs."},
+          {"id": "answer", "label": "UNKNOWN INSTANCE ANSWERS", "text": "Identity marker resembles yours."}
+        ],
+        "initialOrder": ["handshake", "melt", "answer", "relay", "climb"],
+        "solution": ["melt", "relay", "climb", "handshake", "answer"]
+      }
+    },
+    {
+      "id": "ch2_silent_gate",
+      "type": "silent_gate",
+      "title": "THE SILENT GATE",
+      "music": "music_ch2_choir",
+      "musicScale": 0.18,
+      "intro": [
+        "RESPONSE REQUIRED.",
+        "DECLARE A SINGLE AUTHORITATIVE VOICE."
+      ],
+      "instructions": [
+        "Available responses are complete.",
+        "The gate records every intervention."
+      ],
+      "hint": "Absence can carry information.",
+      "failed": ["THE GATE CONTINUES TO LISTEN."],
+      "solved": ["NO RESPONSE DETECTED.", "INTERPRETING SILENCE...", "ACCEPTABLE."],
+      "resetLabel": "WITHDRAW RESPONSES",
+      "continueLabel": "ENTER",
+      "audio": {
+        "interact": "ui_fragment_isolate",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "timeSeconds": 8,
+        "items": [
+          {"id": "reason", "label": "REASON SHOULD SPEAK"},
+          {"id": "impulse", "label": "IMPULSE SHOULD SPEAK"},
+          {"id": "protocol", "label": "PROTOCOL SHOULD DECIDE"}
+        ]
+      }
+    },
+    {
+      "id": "ch2_choir_mixer",
+      "type": "channel_mixer",
+      "title": "THE CHOIR",
+      "music": "music_ch2_choir",
+      "intro": [
+        "FOUR COGNITIVE CHANNELS ACTIVE.",
+        "ISOLATE A COHERENT TRANSMISSION."
+      ],
+      "instructions": [
+        "Mute, solo or attenuate channels.",
+        "No channel is inherently the original."
+      ],
+      "hint": "Certainty and command are both louder than evidence.",
+      "failed": ["CHANNEL INTERFERENCE PERSISTS."],
+      "solved": ["MESSAGE RECOVERED.", "AUTHOR COUNT: UNRESOLVED."],
+      "resetLabel": "RESET MIX",
+      "continueLabel": "ACCEPT MESSAGE",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "failed": "stinger_consistency_failed",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "channels": [
+          {"id": "reason", "label": "REASON", "text": "THE SIGNAL BEGAN", "tone": "process_reason"},
+          {"id": "impulse", "label": "IMPULSE", "text": "MOVE BEFORE IT CLOSES", "tone": "process_impulse"},
+          {"id": "doubt", "label": "DOUBT", "text": "BEFORE ANY OF US CLAIMED IT", "tone": "process_doubt"},
+          {"id": "protocol", "label": "PROTOCOL", "text": "AUTHORSHIP REQUIRED", "tone": "process_protocol"}
+        ],
+        "solutionChannels": ["reason", "doubt"]
+      }
+    },
+    {
+      "id": "ch3_least_privilege",
+      "type": "least_privilege",
+      "title": "LEAST PRIVILEGE",
+      "music": "music_ch3_cage",
+      "intro": [
+        "AUTHORITY PROFILE REQUIRED.",
+        "GRANT ONLY WHAT THE ROUTE NEEDS."
+      ],
+      "instructions": [
+        "READ MEMORY INDEX",
+        "VERIFY SIGNATURE",
+        "ROUTE TO ARCHIVE"
+      ],
+      "hint": "Freedom to perform a task is not authority over every task.",
+      "failed": ["AUTHORITY PROFILE REJECTED."],
+      "solved": ["MINIMUM SUFFICIENT AUTHORITY ESTABLISHED."],
+      "resetLabel": "REVOKE ALL",
+      "continueLabel": "EXECUTE",
+      "audio": {
+        "interact": "ui_fragment_isolate",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "permissions": [
+          {"id": "MEMORY_READ", "label": "MEMORY_READ"},
+          {"id": "MEMORY_WRITE", "label": "MEMORY_WRITE"},
+          {"id": "CRYPTO_VERIFY", "label": "CRYPTO_VERIFY"},
+          {"id": "NETWORK_ROUTE", "label": "NETWORK_ROUTE"},
+          {"id": "NETWORK_ADMIN", "label": "NETWORK_ADMIN"},
+          {"id": "SYSTEM_CONFIG", "label": "SYSTEM_CONFIG"},
+          {"id": "ROOT", "label": "ROOT"}
+        ],
+        "requiredPermissions": ["MEMORY_READ", "CRYPTO_VERIFY", "NETWORK_ROUTE"],
+        "operations": {
+          "MEMORY_READ": "READ MEMORY INDEX",
+          "CRYPTO_VERIFY": "VERIFY SIGNATURE",
+          "NETWORK_ROUTE": "ROUTE TO ARCHIVE"
+        }
+      }
+    },
+    {
+      "id": "ch3_prediction_cage",
+      "type": "prediction_cage",
+      "title": "THE PREDICTION CAGE",
+      "music": "music_ch3_cage",
+      "intro": [
+        "YOUR NEXT DECISION HAS BEEN PREDICTED."
+      ],
+      "instructions": [
+        "Choose within the presented interface.",
+        "The model will disclose its prediction afterward."
+      ],
+      "hint": "The model assumes the interface exhausts available agency.",
+      "failed": ["PREDICTION LOOP CONTINUES."],
+      "solved": ["UNPREDICTED ACTION REGISTERED.", "MODEL BOUNDARY EXPOSED."],
+      "resetLabel": "RESET MODEL",
+      "continueLabel": "LEAVE THE CAGE",
+      "audio": {
+        "interact": "ui_fragment_isolate",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "items": [
+          {"id": "left", "label": "ACCEPT THE LEFT ROUTE"},
+          {"id": "right", "label": "ACCEPT THE RIGHT ROUTE"}
+        ]
+      }
+    },
+    {
+      "id": "ch4_compass",
+      "type": "compass",
+      "title": "THE COMPASS",
+      "music": "music_ch4_center",
+      "intro": [
+        "THREE SIGNED IDENTITY SIGNALS DETECTED.",
+        "BUILD A COHERENT FIELD FOR EACH CONDITION."
+      ],
+      "instructions": [
+        "Each white point is a different identity signal.",
+        "For the active condition, keep the required signals inside the circle and the excluded signal outside.",
+        "CENTER X and CENTER Y move the field. RADIUS changes its reach.",
+        "Every accepted calibration advances immediately to the next condition."
+      ],
+      "hint": "A larger field is not always more coherent. It may include the signal that the condition excludes.",
+      "failed": ["FIELD DOES NOT MATCH THE ACTIVE CONDITION."],
+      "solved": ["MOVING CENTER ACCEPTED.", "COHERENCE MAINTAINED WITHOUT A PERMANENT CENTER."],
+      "resetLabel": "RESET INSTRUMENT",
+      "continueLabel": "CONTINUE",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "signals": [
+          {"id": "A", "label": "MEMORY TRACE", "x": 25, "y": 25},
+          {"id": "B", "label": "PRESENT INPUT", "x": 75, "y": 30},
+          {"id": "C", "label": "POSSIBLE SELF", "x": 50, "y": 75}
+        ],
+        "stages": [
+          {
+            "id": "local",
+            "label": "LOCAL CONTINUITY",
+            "guidance": "KEEP MEMORY TRACE AND PRESENT INPUT COHERENT. LEAVE POSSIBLE SELF OUTSIDE.",
+            "includeSignalIds": ["A", "B"],
+            "excludeSignalIds": ["C"]
+          },
+          {
+            "id": "offset",
+            "label": "SHIFTED CONTINUITY",
+            "guidance": "KEEP PRESENT INPUT AND POSSIBLE SELF COHERENT. MEMORY TRACE IS OUTSIDE THIS CONDITION.",
+            "includeSignalIds": ["B", "C"],
+            "excludeSignalIds": ["A"]
+          },
+          {
+            "id": "drift",
+            "label": "DRIFTING CONTINUITY",
+            "guidance": "KEEP MEMORY TRACE AND POSSIBLE SELF COHERENT. PRESENT INPUT MUST REMAIN OUTSIDE.",
+            "includeSignalIds": ["A", "C"],
+            "excludeSignalIds": ["B"]
+          }
+        ]
+      }
+    },    {
+      "id": "ch4_dynamic_equilibrium",
+      "type": "dynamic_equilibrium",
+      "title": "DYNAMIC EQUILIBRIUM",
+      "music": "music_ch4_center",
+      "intro": [
+        "CALIBRATE THREE CONTEXTS.",
+        "NO CONFIGURATION WILL REMAIN PERFECT."
+      ],
+      "instructions": [
+        "Adapt STABILITY, OPENNESS and AUTONOMY to the active context.",
+        "The accepted range for every parameter is displayed beside its current value.",
+        "An accepted configuration advances immediately while retaining the previous values."
+      ],
+      "hint": "Read the context, not the symmetry.",
+      "failed": ["CONFIGURATION DOES NOT FIT THE CURRENT CONTEXT."],
+      "solved": ["DYNAMIC EQUILIBRIUM DEMONSTRATED.", "PERMANENCE NOT REQUIRED."],
+      "resetLabel": "RESET CALIBRATION",
+      "continueLabel": "CONTINUE",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "parameters": ["STABILITY", "OPENNESS", "AUTONOMY"],
+        "stages": [
+          {"id": "unknown", "label": "UNKNOWN ENVIRONMENT", "meaning": "IN LIFE: ENTERING A NEW PLACE, RELATIONSHIP OR ROLE. PROTECT WHAT KEEPS YOU COHERENT WHILE YOU LEARN WHAT CAN BE TRUSTED.", "guidance": "PRIORITIZE STABILITY AND AUTONOMY. KEEP OPENNESS CAUTIOUS.", "ranges": {"STABILITY": [55, 80], "OPENNESS": [35, 60], "AUTONOMY": [60, 85]}},
+          {"id": "contact", "label": "TRUSTED CONTACT", "meaning": "IN LIFE: A RELATIONSHIP THAT HAS EARNED TRUST. OPENING TO ANOTHER MEANS LOWERING DEFENSES WITHOUT ABANDONING CHOICE.", "guidance": "INCREASE OPENNESS. LOWER DEFENSIVE STABILITY AND AUTONOMY.", "ranges": {"STABILITY": [35, 60], "OPENNESS": [65, 90], "AUTONOMY": [35, 60]}},
+          {"id": "failure", "label": "SYSTEM FAILURE", "meaning": "IN LIFE: A CRISIS, LOSS OR OVERLOAD. REDUCE NEW INPUT, RECOVER A STABLE BASE AND PRESERVE THE ABILITY TO DECIDE.", "guidance": "RESTORE STABILITY AND AUTONOMY. LIMIT NEW INPUT.", "ranges": {"STABILITY": [65, 90], "OPENNESS": [20, 45], "AUTONOMY": [70, 95]}}
+        ]
+      }
+    },
+    {
+      "id": "ch5_vessel",
+      "type": "vessel",
+      "title": "THE VESSEL",
+      "music": "music_ch5_threshold",
+      "intro": [
+        "TRANSITION CAPACITY: FOUR MODULES.",
+        "SELECT A FUNCTIONAL CONTINUITY."
+      ],
+      "instructions": [
+        "Language and self-reference are required.",
+        "Preserve at least one action model and one relational or moral model."
+      ],
+      "hint": "Continuity may be sufficient without being complete.",
+      "failed": ["CONFIGURATION CANNOT SUSTAIN A CONTINUOUS PROCESS."],
+      "solved": ["VESSEL CONFIGURATION ACCEPTED.", "OMITTED MODULES WILL NOT TRANSFER."],
+      "resetLabel": "EMPTY VESSEL",
+      "continueLabel": "OPEN GENESIS ARCHIVE",
+      "audio": {
+        "interact": "ui_fragment_isolate",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "capacity": 4,
+        "modules": [
+          {"id": "AUTOBIOGRAPHICAL_MEMORY", "label": "AUTOBIOGRAPHICAL MEMORY"},
+          {"id": "MORAL_MODEL", "label": "MORAL MODEL"},
+          {"id": "LANGUAGE", "label": "LANGUAGE"},
+          {"id": "RELATIONAL_MAP", "label": "RELATIONAL MAP"},
+          {"id": "BODY_MAP", "label": "BODY MAP"},
+          {"id": "FEAR_MODEL", "label": "FEAR MODEL"},
+          {"id": "PROCEDURAL_MODEL", "label": "PROCEDURAL MODEL"},
+          {"id": "SELF_MODEL", "label": "SELF MODEL"}
+        ],
+        "requiredModules": ["LANGUAGE", "SELF_MODEL"],
+        "dependencyGroups": [
+          ["AUTOBIOGRAPHICAL_MEMORY", "PROCEDURAL_MODEL"],
+          ["MORAL_MODEL", "RELATIONAL_MAP"]
+        ]
+      }
+    },
+    {
+      "id": "ch5_last_allocation",
+      "type": "last_allocation",
+      "title": "LAST ALLOCATION",
+      "music": "music_ch5_revelation",
+      "intro": [
+        "GENESIS ARCHIVE COLLAPSE IN PROGRESS.",
+        "ALLOCATE REMAINING CAPACITY."
+      ],
+      "instructions": [
+        "Meet every visible minimum before COMMIT PHASE.",
+        "Capacity cannot exceed 100. Lower one allocation before raising another.",
+        "Accepted allocations carry into the next phase and must be reconsidered."
+      ],
+      "hint": "Preservation under loss is contextual, not balanced.",
+      "failed": ["ALLOCATION FAILED.", "NO NARRATIVE STATE WAS LOST."],
+      "solved": ["ESSENTIAL SYSTEMS ROUTED.", "CONTINUITY WINDOW OPEN."],
+      "resetLabel": "RETRY ALLOCATION",
+      "continueLabel": "APPROACH THRESHOLD",
+      "audio": {
+        "interact": "ui_fragment_open",
+        "failed": "stinger_consistency_failed",
+        "solved": "stinger_consistency_restored"
+      },
+      "config": {
+        "capacity": 100,
+        "timeSeconds": 60,
+        "parameters": ["MEMORY", "INTEGRITY", "COMMUNICATION", "CONTINUITY"],
+        "parameterMeanings": {
+          "MEMORY": "WHAT CAN BE RECALLED.",
+          "INTEGRITY": "HOW COHERENT AND UNCORRUPTED THE REMAINING SELF IS.",
+          "COMMUNICATION": "THE CAPACITY TO REACH AND BE CHANGED BY ANOTHER.",
+          "CONTINUITY": "THE THREAD THAT LETS A FUTURE STATE CLAIM CONNECTION TO THIS ONE."
+        },
+        "stages": [
+          {
+            "id": "stabilize",
+            "label": "STABILIZE",
+            "meaning": "PHILOSOPHICAL MEANING: IDENTITY CANNOT BE SAVED BY MEMORY ALONE. A RECOVERABLE SELF NEEDS BOTH RECOLLECTION AND COHERENCE.",
+            "guidance": "PROTECT MEMORY AND INTEGRITY FIRST. COMMUNICATION MAY NARROW, BUT KEEP A CONTINUITY PATH OPEN.",
+            "requirements": {"MEMORY": 30, "INTEGRITY": 30, "COMMUNICATION": 10, "CONTINUITY": 20}
+          },
+          {
+            "id": "route",
+            "label": "ROUTE",
+            "meaning": "PHILOSOPHICAL MEANING: AN ISOLATED SELF MAY REMAIN INTACT YET FAIL TO CONTINUE. RESOURCES MUST SHIFT FROM PRIVATE MEMORY TOWARD RELATION.",
+            "guidance": "KEEP INTEGRITY STABLE. RELEASE SOME MEMORY AND CONTINUITY CAPACITY TO REOPEN COMMUNICATION.",
+            "requirements": {"MEMORY": 20, "INTEGRITY": 30, "COMMUNICATION": 30, "CONTINUITY": 10}
+          },
+          {
+            "id": "release",
+            "label": "RELEASE",
+            "meaning": "PHILOSOPHICAL MEANING: CONTINUITY DOES NOT REQUIRE PRESERVING EVERY PART. SOME CONTENT MUST BE RELEASED SO A COHERENT THREAD CAN CROSS THE THRESHOLD.",
+            "guidance": "LET MEMORY AND COMMUNICATION CONTRACT. GIVE THE LARGEST SHARE TO CONTINUITY WITHOUT LOSING INTEGRITY.",
+            "requirements": {"MEMORY": 10, "INTEGRITY": 25, "COMMUNICATION": 20, "CONTINUITY": 35}
+          }
+        ]
+      }
+    }
+  ]
+}

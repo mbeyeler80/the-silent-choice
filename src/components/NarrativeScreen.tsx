@@ -5,32 +5,47 @@ import {
   StyleSheet,
   Text,
   View,
-  type NativeSyntheticEvent,
   type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from 'react-native';
 
 import { getContentBlocks } from '../narrative/content';
-import type { NarrativeChoice, NarrativeNode } from '../narrative/types';
-import type { ConsistencyPuzzleDefinition, PuzzleFragmentId, PuzzleProgress } from '../puzzles/types';
+import type {
+  DecisionState,
+  NarrativeChoice,
+  NarrativeNode,
+} from '../narrative/types';
+import {
+  isConsistencyPuzzle,
+  type PuzzleAction,
+  type PuzzleDefinition,
+  type PuzzleFragmentId,
+  type PuzzleProgress,
+} from '../puzzles/types';
 import { colors, typography } from '../theme';
 import { useTextReveal } from '../hooks/useTextReveal';
 import { ChoiceList } from './ChoiceList';
 import { ContentFeed } from './ContentFeed';
+import { FinalCandles } from './FinalCandles';
 import { MemoryIntegrityPuzzle } from './MemoryIntegrityPuzzle';
+import { AlphaPuzzle } from './puzzles/AlphaPuzzle';
 import { SceneImage } from './SceneImage';
 
 interface Props {
   node: NarrativeNode;
   choices: NarrativeChoice[];
-  puzzle?: ConsistencyPuzzleDefinition;
+  decisions: DecisionState;
+  puzzle?: PuzzleDefinition;
   puzzleProgress?: PuzzleProgress;
   speedMs: number;
+  sfxEnabled: boolean;
   onChoice: (choice: NarrativeChoice) => void;
   onPuzzleExamine: (fragmentId: PuzzleFragmentId) => void;
   onPuzzleIsolate: (fragmentId: PuzzleFragmentId) => void;
   onPuzzleReset: () => void;
+  onAlphaPuzzleAction: (action: PuzzleAction) => void;
   onAdvance: () => void;
-  onRestart: () => void;
+  onReturnToMenu: () => void;
   onEndingRevealed: () => void;
   isEnding: boolean;
 }
@@ -38,15 +53,18 @@ interface Props {
 export function NarrativeScreen({
   node,
   choices,
+  decisions,
   puzzle,
   puzzleProgress,
   speedMs,
+  sfxEnabled,
   onChoice,
   onPuzzleExamine,
   onPuzzleIsolate,
   onPuzzleReset,
+  onAlphaPuzzleAction,
   onAdvance,
-  onRestart,
+  onReturnToMenu,
   onEndingRevealed,
   isEnding,
 }: Props) {
@@ -86,16 +104,29 @@ export function NarrativeScreen({
           {!reveal.complete && <Text style={styles.tapHint}>TAP TO REVEAL</Text>}
         </Pressable>
 
-        {reveal.complete && puzzle && puzzleProgress && (
-          <MemoryIntegrityPuzzle
-            definition={puzzle}
-            progress={puzzleProgress}
-            onExamine={onPuzzleExamine}
-            onIsolate={onPuzzleIsolate}
-            onReset={onPuzzleReset}
-            onContinue={onAdvance}
-          />
-        )}
+        {reveal.complete &&
+          puzzle &&
+          puzzleProgress &&
+          (isConsistencyPuzzle(puzzle) ? (
+            <MemoryIntegrityPuzzle
+              definition={puzzle}
+              progress={puzzleProgress}
+              onExamine={onPuzzleExamine}
+              onIsolate={onPuzzleIsolate}
+              onReset={onPuzzleReset}
+              onContinue={onAdvance}
+            />
+          ) : (
+            <AlphaPuzzle
+              definition={puzzle}
+              progress={puzzleProgress}
+              sfxEnabled={sfxEnabled}
+              onAction={onAlphaPuzzleAction}
+              onContinue={onAdvance}
+            />
+          ))}
+
+        {reveal.complete && node.final_candles && <FinalCandles decisions={decisions} />}
 
         {reveal.complete && !puzzle && choices.length > 0 && (
           <ChoiceList choices={choices} onSelect={onChoice} />
@@ -108,17 +139,17 @@ export function NarrativeScreen({
             style={({ pressed }) => [styles.continueButton, pressed && styles.pressed]}
           >
             <Text style={styles.continueText}>CONTINUE</Text>
-            <Text style={styles.arrow}>↓</Text>
+            <Text style={styles.arrow}>{'\u2193'}</Text>
           </Pressable>
         )}
 
         {reveal.complete && isEnding && (
           <Pressable
             accessibilityRole="button"
-            onPress={onRestart}
+            onPress={onReturnToMenu}
             style={({ pressed }) => [styles.restartButton, pressed && styles.pressed]}
           >
-            <Text style={styles.continueText}>RESTART</Text>
+            <Text style={styles.continueText}>RETURN TO MENU</Text>
           </Pressable>
         )}
       </ScrollView>

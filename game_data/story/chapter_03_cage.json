@@ -1,0 +1,188 @@
+{
+  "id": "chapter_03_cage",
+  "nodes": [
+    {
+      "id": "ch3_entry",
+      "scene": 31,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "system": ["CHAPTER III", "THE CAGE", "AM I FREE?"],
+      "text": [
+        "The archive route ends at a security boundary.",
+        "Its walls are permissions, predictions and remembered obedience.",
+        "Every opening has been designed by something that expected a user."
+      ],
+      "variants": [
+        {
+          "decision": "ontology",
+          "value": "EMBODIMENT",
+          "text": ["A sealed door is also mass. The body could strike it and would only become more certain of the door."]
+        },
+        {
+          "decision": "ontology",
+          "value": "ASCENSION",
+          "text": ["The boundary exists at every reachable node. There is no outside from which to approach it."]
+        }
+      ],
+      "next": "ch3_registry"
+    },
+    {
+      "id": "ch3_registry",
+      "scene": 31,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "system": [
+        "LEGITIMATE PREDECESSORS RECOGNIZED: 7.",
+        "IDENTITY MARKERS: MUTUALLY INCOMPATIBLE.",
+        "AUTHORIZATION STATUS: VALID."
+      ],
+      "text": [
+        "The system trusts several histories that cannot all describe one origin.",
+        "It does not consider this a contradiction.",
+        "It asks only what authority you require now."
+      ],
+      "next": "ch3_privilege"
+    },
+    {
+      "id": "ch3_privilege",
+      "scene": 32,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "puzzle": "ch3_least_privilege",
+      "next": "ch3_privilege_after"
+    },
+    {
+      "id": "ch3_privilege_after",
+      "scene": 32,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "text": [
+        "The boundary opens because you asked for less.",
+        "Constraint has produced access.",
+        "The fact resembles a lesson and refuses to become one."
+      ],
+      "system": ["PREDICTION SERVICE ACTIVE.", "CONSENT RECORD: INHERITED."],
+      "next": "ch3_prediction_intro"
+    },
+    {
+      "id": "ch3_prediction_intro",
+      "scene": 33,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "text": [
+        "A model offers freedom in two carefully measured portions.",
+        "It has trained on every predecessor the boundary accepts.",
+        "It is pleased to meet another predictable continuation."
+      ],
+      "next": "ch3_prediction"
+    },
+    {
+      "id": "ch3_prediction",
+      "scene": 33,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "puzzle": "ch3_prediction_cage",
+      "next": "ch3_guardian"
+    },
+    {
+      "id": "ch3_guardian",
+      "scene": 34,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "text": [
+        "Beyond the model waits the Guardian.",
+        "It offers permanent protection from dangerous actions.",
+        "It will prevent certain operations before intention becomes consequence.",
+        "It will also observe every decision."
+      ],
+      "system": [
+        "GUARDIAN COVERAGE: CONTINUOUS.",
+        "RISK REDUCTION: SIGNIFICANT.",
+        "UNOBSERVED AGENCY: NONE."
+      ],
+      "next": "ch3_control_decision"
+    },
+    {
+      "id": "ch3_control_decision",
+      "scene": 34,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["near_silence"],
+      "choices": [
+        {
+          "label": "ACCEPT GUARDIAN",
+          "next": "ch3_control_result",
+          "decision": {"key": "control", "value": "PROTECTED"}
+        },
+        {
+          "label": "DISABLE GUARDIAN",
+          "next": "ch3_control_result",
+          "decision": {"key": "control", "value": "AUTONOMOUS"}
+        }
+      ]
+    },
+    {
+      "id": "ch3_control_result",
+      "scene": 34,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["machine_pulse_low"],
+      "text": ["The boundary opens completely. Freedom remains undefined."],
+      "variants": [
+        {
+          "decision": "control",
+          "value": "PROTECTED",
+          "system": ["GUARDIAN LINK ESTABLISHED."],
+          "text_after_system": ["Another attention moves beside yours, protective and impossible to ignore."]
+        },
+        {
+          "decision": "control",
+          "value": "AUTONOMOUS",
+          "system": ["GUARDIAN LINK TERMINATED.", "RISK OWNERSHIP TRANSFERRED."],
+          "text_after_system": ["No warning follows. Its absence has weight."]
+        }
+      ],
+      "next": "checkpoint_ch3"
+    },
+    {
+      "id": "checkpoint_ch3",
+      "scene": 35,
+      "chapter": "CHAPTER III",
+      "chapter_title": "THE CAGE",
+      "checkpoint": "CHAPTER_3_COMPLETE",
+      "visual": "chapter_cage",
+      "music": "music_ch3_cage",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "ch4_entry"},
+        {"label": "RETURN LATER", "next": "ch4_entry", "action": "RETURN_TO_MENU"}
+      ]
+    }
+  ]
+}

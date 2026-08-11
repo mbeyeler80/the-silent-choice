@@ -72,7 +72,11 @@ function createPlayers(
   return players;
 }
 
-export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void {
+export function useNarrativeAudio(
+  audio: NarrativeAudio,
+  options: { musicEnabled: boolean; sfxEnabled: boolean },
+): void {
+  const { musicEnabled, sfxEnabled } = options;
   const ambiencePlayers = useRef<AudioPlayer[]>([]);
   const uiPlayers = useRef<AudioPlayer[]>([]);
   const stingerPlayers = useRef<AudioPlayer[]>([]);
@@ -101,7 +105,7 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
     if (fadingOutMusic.current) release([fadingOutMusic.current]);
     fadingOutMusic.current = undefined;
 
-    if (!enabled) {
+    if (!musicEnabled) {
       if (activeMusic.current) release([activeMusic.current.player]);
       activeMusic.current = undefined;
       return;
@@ -151,14 +155,14 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
         fadingOutMusic.current = undefined;
       }
     }, FADE_STEP_MS);
-  }, [audio.music, enabled, musicVolumeScale]);
+  }, [audio.music, musicEnabled, musicVolumeScale]);
 
   useEffect(() => {
     if (lastMusicVolumeScale.current === musicVolumeScale) return;
     lastMusicVolumeScale.current = musicVolumeScale;
 
     const active = activeMusic.current;
-    if (!enabled || !active) return;
+    if (!musicEnabled || !active) return;
 
     if (musicMixFade.current) clearInterval(musicMixFade.current);
     const startedAt = Date.now();
@@ -174,11 +178,11 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
         musicMixFade.current = undefined;
       }
     }, FADE_STEP_MS);
-  }, [enabled, musicVolumeScale]);
+  }, [musicEnabled, musicVolumeScale]);
 
   useEffect(() => {
     if (audio.ambience !== undefined) latestAmbience.current = audio.ambience;
-    if (!enabled) {
+    if (!sfxEnabled) {
       release(ambiencePlayers.current);
       ambiencePlayers.current = [];
       return;
@@ -193,14 +197,14 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
       resolveEnvironmentalAmbience,
       'ambience',
     );
-  }, [ambienceKey, enabled]);
+  }, [ambienceKey, sfxEnabled]);
 
   useEffect(() => {
     release(uiPlayers.current);
-    uiPlayers.current = enabled
+    uiPlayers.current = sfxEnabled
       ? createPlayers(audio.uiSounds ?? [], resolveUiTextSound, 'ui')
       : [];
-  }, [audio.eventKey, enabled, uiKey]);
+  }, [audio.eventKey, sfxEnabled, uiKey]);
 
   useEffect(() => {
     if (stingerTimer.current) clearTimeout(stingerTimer.current);
@@ -208,7 +212,7 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
     release(stingerPlayers.current);
     stingerPlayers.current = [];
 
-    if (!enabled) return;
+    if (!sfxEnabled) return;
     const playStingers = () => {
       stingerPlayers.current = createPlayers(
         audio.stingers ?? [],
@@ -221,7 +225,7 @@ export function useNarrativeAudio(audio: NarrativeAudio, enabled: boolean): void
     } else {
       playStingers();
     }
-  }, [audio.eventKey, audio.stingerDelayMs, enabled, stingerKey]);
+  }, [audio.eventKey, audio.stingerDelayMs, sfxEnabled, stingerKey]);
 
   useEffect(
     () => () => {

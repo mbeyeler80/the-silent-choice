@@ -1,4 +1,4 @@
-﻿# TextAdventure
+# TextAdventure
 
 
 Progetto di **avventura testuale narrativa per dispositivi mobili** ambientata in un futuro cyberpunk/postumano.
@@ -55,8 +55,38 @@ Il prologo usa testo descrittivo a scorrimento. Ordine di importanza espressiva:
 
 ## Stato
 
+**First Complete Playable Alpha 0.3.0.**
 
-**Concept / Design 0.2.**
+Il percorso giocabile comprende Prologo, cinque capitoli, Finale, undici puzzle complessivi, sei decisioni persistenti, otto varianti finali, autosave locale e tre slot di continuità.
 
+## Avvio dell'app mobile
 
-Prossimi passi: definire il primo indizio narrativo nell'eremo, scrivere il prologo definitivo e progettare il primo prototipo mobile.
+Requisiti: Node.js, `pnpm`, Android Studio con un emulatore configurato oppure un telefono Android con Expo Go.
+
+Installare le dipendenze dalla cartella del progetto:
+
+```powershell
+pnpm install
+```
+
+### Emulatore Android
+
+Avviare prima l'emulatore da Android Studio, quindi eseguire:
+
+```powershell
+pnpm exec expo start --android --clear
+```
+
+Se Metro è già avviato, premere `a` nel terminale per aprire il gioco nell'emulatore.
+
+### Telefono Android con Expo Go
+
+Con computer e telefono collegati alla stessa rete:
+
+```powershell
+pnpm exec expo start --clear
+```
+
+Aprire Expo Go sul telefono e scansionare il codice QR mostrato da Metro.
+
+I dettagli della milestone e i placeholder intenzionali sono descritti in `docs/development/full_alpha_v0_3.md`.

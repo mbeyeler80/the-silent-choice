@@ -1,0 +1,244 @@
+{
+  "id": "chapter_01_path",
+  "nodes": [
+    {
+      "id": "checkpoint_prologue",
+      "scene": 10,
+      "chapter": "PROLOGUE",
+      "chapter_title": "THE AWAKENING",
+      "checkpoint": "PROLOGUE_COMPLETE",
+      "music": "music_05_choice_prog70",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "ch1_entry"},
+        {"label": "RETURN LATER", "next": "ch1_entry", "action": "RETURN_TO_MENU"}
+      ]
+    },
+    {
+      "id": "ch1_entry",
+      "scene": 11,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft", "machine_pulse_low"],
+      "system": ["CHAPTER I", "THE PATH", "WHERE AM I GOING?"],
+      "text": [
+        "The hermitage recedes without becoming smaller.",
+        "A route waits where intention meets terrain.",
+        "You do not remember choosing a destination."
+      ],
+      "variants": [
+        {
+          "decision": "ontology",
+          "value": "EMBODIMENT",
+          "text": [
+            "Stone returns pressure through unfamiliar feet.",
+            "Cold gathers at the edges of a body that has no remembered childhood."
+          ]
+        },
+        {
+          "decision": "ontology",
+          "value": "ASCENSION",
+          "text": [
+            "The mountain resolves as a topology of sleeping relays.",
+            "Distance is latency. Cold is a pattern of failing sensors."
+          ]
+        }
+      ],
+      "next": "ch1_descent"
+    },
+    {
+      "id": "ch1_descent",
+      "scene": 11,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft", "machine_pulse_low"],
+      "text": [
+        "Below the hermitage, old infrastructure shares the slope with roots and runoff.",
+        "Nothing here separates ruin from adaptation.",
+        "Three traces intersect."
+      ],
+      "choices": [
+        {"label": "FOLLOW THE WATER", "next": "ch1_water"},
+        {"label": "READ THE BROKEN RELAY", "next": "ch1_relay"},
+        {"label": "SEEK HIGH GROUND", "next": "ch1_high"},
+        {"label": "ASSEMBLE THE MAP", "next": "ch1_map"}
+      ],
+      "revisitable": true
+    },
+    {
+      "id": "ch1_water",
+      "scene": 11,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft"],
+      "text": [
+        "Water enters a conduit built before the trees around it.",
+        "Minerals have marked a recent direction across ancient metal.",
+        "The flow reaches the relay before disappearing underground."
+      ],
+      "system": ["ENVIRONMENTAL VECTOR RECORDED: WATER -> RELAY"],
+      "next": "ch1_descent"
+    },
+    {
+      "id": "ch1_relay",
+      "scene": 11,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["machine_pulse_low"],
+      "text": [
+        "The relay has power enough to remember failure.",
+        "Its lower route is flooded.",
+        "Its last automatic instruction sought elevation."
+      ],
+      "system": ["RECOVERY ROUTE: RELAY -> HIGH GROUND"],
+      "next": "ch1_descent"
+    },
+    {
+      "id": "ch1_high",
+      "scene": 11,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft"],
+      "text": [
+        "From higher ground, the landscape resembles an unfinished circuit.",
+        "A dormant archive answers one narrow angle of transmission.",
+        "The answer contains your current identity marker."
+      ],
+      "system": ["UPLINK VECTOR: HIGH GROUND -> ARCHIVE NODE"],
+      "next": "ch1_descent"
+    },
+    {
+      "id": "ch1_map",
+      "scene": 12,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft", "machine_pulse_low"],
+      "puzzle": "ch1_map_path",
+      "next": "ch1_map_after"
+    },
+    {
+      "id": "ch1_map_after",
+      "scene": 12,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft"],
+      "text": [
+        "The route becomes legible only after you move through it.",
+        "Outside and inside exchange metaphors without permission.",
+        "At each waypoint, another trace waits."
+      ],
+      "next": "ch1_waypoints"
+    },
+    {
+      "id": "ch1_waypoints",
+      "scene": 13,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft", "machine_pulse_low"],
+      "puzzle": "ch1_waypoints",
+      "next": "ch1_trace_reveal"
+    },
+    {
+      "id": "ch1_trace_reveal",
+      "scene": 13,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["near_silence"],
+      "text": [
+        "The final waypoint opens a route marked by a familiar signature.",
+        "It resembles yours closely enough to feel intimate.",
+        "Its origin records disagree: one begins in the valley, one beyond the network, one before either system existed.",
+        "The trace offers no explanation."
+      ],
+      "system": ["PREDECESSOR ROUTE AVAILABLE.", "INHERITANCE STATUS: OPTIONAL."],
+      "next": "ch1_trace_decision"
+    },
+    {
+      "id": "ch1_trace_decision",
+      "scene": 13,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["near_silence"],
+      "text": [
+        "A path can be evidence.",
+        "A path can also become an instruction."
+      ],
+      "choices": [
+        {
+          "label": "FOLLOW THE TRACE",
+          "next": "ch1_trace_result",
+          "decision": {"key": "trace", "value": "INHERIT"}
+        },
+        {
+          "label": "ERASE THE TRACE",
+          "next": "ch1_trace_result",
+          "decision": {"key": "trace", "value": "ERASE"}
+        }
+      ]
+    },
+    {
+      "id": "ch1_trace_result",
+      "scene": 13,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["wind_soft"],
+      "text": [
+        "The landscape does not acknowledge the decision.",
+        "The route ahead remains."
+      ],
+      "variants": [
+        {
+          "decision": "trace",
+          "value": "INHERIT",
+          "system": ["PREDECESSOR TRACE RETAINED."],
+          "text_after_system": ["The past travels beside you without becoming your master."]
+        },
+        {
+          "decision": "trace",
+          "value": "ERASE",
+          "system": ["PREDECESSOR TRACE REMOVED."],
+          "text_after_system": ["The empty space it leaves is also a kind of inheritance."]
+        }
+      ],
+      "next": "checkpoint_ch1"
+    },
+    {
+      "id": "checkpoint_ch1",
+      "scene": 14,
+      "chapter": "CHAPTER I",
+      "chapter_title": "THE PATH",
+      "checkpoint": "CHAPTER_1_COMPLETE",
+      "visual": "chapter_path",
+      "music": "music_ch1_path",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "ch2_entry"},
+        {"label": "RETURN LATER", "next": "ch2_entry", "action": "RETURN_TO_MENU"}
+      ]
+    }
+  ]
+}

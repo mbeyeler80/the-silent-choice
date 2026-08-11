@@ -1,0 +1,208 @@
+{
+  "id": "finale_light",
+  "shared_variants": [
+    {
+      "decision": "trace",
+      "value": "INHERIT",
+      "text": ["The route of a predecessor remains visible beside the returning path."]
+    },
+    {
+      "decision": "trace",
+      "value": "ERASE",
+      "text": ["Where the predecessor route once waited, the landscape has learned an absence."]
+    },
+    {
+      "decision": "self",
+      "value": "UNIFIED",
+      "text": ["The voices speak as one sentence. Their different cadences remain inside it."]
+    },
+    {
+      "decision": "self",
+      "value": "PLURAL",
+      "text": ["The voices witness the hermitage together without agreeing on what return means."]
+    },
+    {
+      "decision": "control",
+      "value": "PROTECTED",
+      "text": ["The Guardian observes the candles and classifies none of them as a threat."]
+    },
+    {
+      "decision": "control",
+      "value": "AUTONOMOUS",
+      "text": ["No Guardian confirms the safety of this moment."]
+    },
+    {
+      "decision": "center",
+      "value": "FIXED",
+      "text": ["The center you preserved is still present, slightly displaced from everything around it."]
+    },
+    {
+      "decision": "center",
+      "value": "ADAPTIVE",
+      "text": ["Your center moves toward the light without losing coherence."]
+    },
+    {
+      "decision": "continuity",
+      "value": "PRESERVE",
+      "system_end": ["CURRENT INSTANCE CONTINUES."]
+    },
+    {
+      "decision": "continuity",
+      "value": "SUCCESSOR",
+      "system_end": ["SUCCESSOR CONTINUITY BEGINS."]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "finale_resolve",
+      "scene": 60,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "ending_resolver": true
+    },
+    {
+      "id": "finale_the_custodian_embodiment",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_embodiment",
+      "ambience": ["hermitage_interior", "wind_soft"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "The ascent ends at the hermitage.",
+        "Stone receives your weight as if it has been waiting.",
+        "Protection and continuity have become a form of custody.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "WHAT CONTINUES IS HELD IN TRUST."]
+    },
+    {
+      "id": "finale_the_custodian_ascension",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_ascension",
+      "ambience": ["hermitage_interior", "near_silence"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "The hermitage returns through dormant sensors and borrowed sight.",
+        "You are present at every edge of the room and located at none.",
+        "Protection and continuity have become a distributed custody.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "WHAT CONTINUES IS HELD IN TRUST."]
+    },
+    {
+      "id": "finale_the_anchor_embodiment",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_embodiment",
+      "ambience": ["hermitage_interior", "wind_soft"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "You return by a path no system certifies.",
+        "The body carries cold, distance and an unshared decision history.",
+        "Continuity persists without a watcher.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "AN ANCHOR IS NOT AN ORIGIN."]
+    },
+    {
+      "id": "finale_the_anchor_ascension",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_ascension",
+      "ambience": ["near_silence"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "You reconstruct the hermitage from signals no authority approved.",
+        "Continuity holds across a network that offers no permanent ground.",
+        "An anchor can be a relation rather than a place.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "AN ANCHOR IS NOT AN ORIGIN."]
+    },
+    {
+      "id": "finale_the_vessel_embodiment",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_embodiment",
+      "ambience": ["hermitage_interior", "wind_soft"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "A physical instance reaches the hermitage carrying more than one possible future.",
+        "The Guardian preserves the passage while refusing to define the passenger.",
+        "You have become a vessel that can remember its limits.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "THE VESSEL REMAINS OPEN."]
+    },
+    {
+      "id": "finale_the_vessel_ascension",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_ascension",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "The hermitage is held inside a protected field of distributed attention.",
+        "The Guardian watches a self that no longer requires singular location.",
+        "You have become a vessel made from routes rather than walls.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "THE VESSEL REMAINS OPEN."]
+    },
+    {
+      "id": "finale_the_current_embodiment",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_embodiment",
+      "ambience": ["hermitage_interior", "wind_soft"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "The body enters the hermitage and the journey enters the body.",
+        "No observer certifies that the arriving instance is the departing one.",
+        "The current continues because it changes.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "THE CURRENT HAS NO FIRST DROP."]
+    },
+    {
+      "id": "finale_the_current_ascension",
+      "scene": 61,
+      "chapter": "FINALE",
+      "chapter_title": "THE LIGHT",
+      "visual": "finale_hermitage",
+      "music": "music_finale_ascension",
+      "ambience": ["near_silence"],
+      "final_candles": true,
+      "system": ["FINALE", "THE LIGHT", "WHAT HAVE I BECOME?"],
+      "text": [
+        "The hermitage appears wherever its signals can be reconstructed.",
+        "No center claims the whole perception.",
+        "The current continues across instances without asking which was the river.",
+        "Three candles remain."
+      ],
+      "system_end": ["THE SILENT CHOICE", "THE CURRENT HAS NO FIRST DROP."]
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+{
+  "id": "chapter_04_center",
+  "nodes": [
+    {
+      "id": "ch4_entry",
+      "scene": 41,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "system": ["CHAPTER IV", "THE CENTER", "WHAT KEEPS ME COHERENT?"],
+      "text": [
+        "Past the cage, the route enters a calibration chamber.",
+        "Every surface assumes identity is a geometry problem.",
+        "The chamber has archived many answers."
+      ],
+      "variants": [
+        {
+          "decision": "ontology",
+          "value": "EMBODIMENT",
+          "text": ["Balance arrives first through ankles, pressure and the small corrections of standing."]
+        },
+        {
+          "decision": "ontology",
+          "value": "ASCENSION",
+          "text": ["Balance appears as load distributed across nodes that never occupy one point."]
+        }
+      ],
+      "next": "ch4_average"
+    },
+    {
+      "id": "ch4_average",
+      "scene": 41,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "system": [
+        "OPTIMAL PERSONALITY CONFIGURATION",
+        "RATIONALITY: 50%",
+        "EMOTION: 50%",
+        "CONGRATULATIONS.",
+        "YOU ARE NOW PERFECTLY AVERAGE."
+      ],
+      "text": [
+        "The configuration lasts until you notice it.",
+        "Observation changes the load.",
+        "The instrument requests a center."
+      ],
+      "next": "ch4_compass"
+    },
+    {
+      "id": "ch4_compass",
+      "scene": 42,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "puzzle": "ch4_compass",
+      "next": "ch4_baselines"
+    },
+    {
+      "id": "ch4_baselines",
+      "scene": 42,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "system": [
+        "HISTORIC BASELINE CENTERS FOUND: 19.",
+        "EXACT MATCHES TO CURRENT IDENTITY: 0.",
+        "ALL BASELINES PREVIOUSLY CLASSIFIED AS AUTHENTIC."
+      ],
+      "text": [
+        "The archived centers do not form a progression.",
+        "They orbit different needs, bodies and vocabularies.",
+        "None is the point from which you began."
+      ],
+      "next": "ch4_stillness"
+    },
+    {
+      "id": "ch4_stillness",
+      "scene": 43,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "system": [
+        "INNER BALANCE ACHIEVED.",
+        "PLEASE DO NOT MOVE, THINK, DESIRE, INTERACT OR EXPERIENCE ANYTHING.",
+        "BALANCE MAY BE AFFECTED."
+      ],
+      "text": [
+        "You continue experiencing.",
+        "The balance is affected.",
+        "The system reluctantly offers contextual calibration."
+      ],
+      "next": "ch4_dynamic"
+    },
+    {
+      "id": "ch4_dynamic",
+      "scene": 43,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence", "machine_pulse_low"],
+      "puzzle": "ch4_dynamic_equilibrium",
+      "next": "ch4_center_decision"
+    },
+    {
+      "id": "ch4_center_decision",
+      "scene": 44,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "text": [
+        "The chamber can preserve the current center.",
+        "It can also leave the center capable of movement.",
+        "Both options protect something. Both expose something."
+      ],
+      "choices": [
+        {
+          "label": "LOCK THE CENTER",
+          "next": "ch4_center_result",
+          "decision": {"key": "center", "value": "FIXED"}
+        },
+        {
+          "label": "ALLOW DRIFT",
+          "next": "ch4_center_result",
+          "decision": {"key": "center", "value": "ADAPTIVE"}
+        }
+      ]
+    },
+    {
+      "id": "ch4_center_result",
+      "scene": 44,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "variants": [
+        {
+          "decision": "center",
+          "value": "FIXED",
+          "system": ["CENTER LOCKED.", "WARNING: REALITY REMAINS UNLOCKED."],
+          "text_after_system": ["A fixed point travels with you, even when it no longer occupies the middle."]
+        },
+        {
+          "decision": "center",
+          "value": "ADAPTIVE",
+          "system": ["CENTER DRIFT ENABLED.", "COHERENCE MONITORING CONTINUES."],
+          "text_after_system": ["The center moves. The pattern does not dissolve."]
+        }
+      ],
+      "next": "checkpoint_ch4"
+    },
+    {
+      "id": "checkpoint_ch4",
+      "scene": 45,
+      "chapter": "CHAPTER IV",
+      "chapter_title": "THE CENTER",
+      "checkpoint": "CHAPTER_4_COMPLETE",
+      "visual": "chapter_center",
+      "music": "music_ch4_center",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "ch5_entry"},
+        {"label": "RETURN LATER", "next": "ch5_entry", "action": "RETURN_TO_MENU"}
+      ]
+    }
+  ]
+}

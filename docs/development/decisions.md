@@ -46,3 +46,21 @@ Il principio canonico introdotto e: **integrity/provenance verification != truth
 Il puzzle usa stato separato dal narrative state e dall'audio state. Vengono conservati frammenti esaminati, numero di tentativi, numero di fallimenti, primo isolamento tentato e frammento finale isolato. Il narrative engine impedisce di lasciare il nodo finche il puzzle non e risolto.
 
 Il motivo delle tre candele e reso nella stessa interfaccia terminale: la luce associata a un tentativo si spegne, torna lentamente dopo un reset fallito e resta spenta quando C viene isolato. La musica del puzzle e un asset dedicato e data-driven; UI cues e stinger rimangono categorie audio separate.
+
+## 2026-08-11 - First Complete Playable Alpha 0.3.0
+
+**Decisione:** la vertical slice 0.1 non e piu il limite eseguibile dell'app. L'alpha 0.3.0 conserva il prologo e lo estende con cinque capitoli e un finale completo, privilegiando un percorso end-to-end giocabile rispetto alla rifinitura di singole scene.
+
+Le sei decisioni canoniche (`ontology`, `trace`, `self`, `control`, `center`, `continuity`) sono stato narrativo persistente. Il finale e risolto in modo deterministico in quattro famiglie, ognuna resa per EMBODIMENT e ASCENSION. I puzzle conservano stato e telemetria separati e non espongono un punteggio morale.
+
+I salvataggi locali usano schema versionato 1, massimo tre continuita e checkpoint immutabili ai confini dei capitoli. Un ripristino crea una nuova continuita; la sostituzione di uno slot pieno richiede conferma esplicita tramite selezione.
+
+Per la prima alpha sono accettati fondali riutilizzati e tracce procedurali provvisorie. Non si aggiunge testo di riempimento per raggiungere una durata nominale: ritmo e durata saranno misurati nel primo playtest completo.
+## 2026-08-11 - Compass visible geometry
+
+**Decisione:** The Compass non usa piu coordinate-obiettivo nascoste. I tre punti visibili sono segnali identitari etichettati; ogni condizione dichiara quali segnali devono rimanere dentro il campo e quale deve restare fuori. Il motore verifica la stessa geometria normalizzata mostrata dalla UI. Un campo piu grande non e automaticamente migliore, perche puo includere un segnale escluso. Questa regola rende comprensibile perche il centro debba adattarsi senza trasformare il puzzle in una ricerca di numeri arbitrari.
+## 2026-08-11 - Last Allocation legibility
+
+**Decisione:** Last Allocation mantiene capacità, soglie e progressione esistenti, porta la finestra a 60 secondi per fase e rende visibili i minimi operativi, la capacità libera e gli scostamenti da correggere. Il giocatore non deve dedurre numeri nascosti.
+
+I quattro parametri vengono presentati come aspetti dell'identità: memoria, coerenza, relazione e continuità. Le tre riallocazioni esprimono che preservare un sé non significa conservare tutto: in condizioni diverse alcune parti devono contrarsi perché una continuità coerente possa sopravvivere. La spiegazione filosofica e le definizioni restano nei dati del puzzle, non nella logica React.

@@ -1,29 +1,38 @@
 {
-  "version": "0.3-memory-integrity",
+  "version": "0.3.0-alpha",
   "format": "PCM WAV mono 44.1kHz/16-bit",
   "categories": [
     "music",
     "environmental_ambience",
     "ui_text_sounds",
-    "narrative_stingers"
+    "narrative_stingers",
+    "process_channels"
   ],
   "environmental_ambience": {
-    "02_wind_soft_loop.wav": "loop; scenes 1-2; soft alpine wind",
+    "02_wind_soft_loop.wav": "loop; soft alpine wind",
     "03_hermitage_interior_loop.wav": "loop; hermitage interior bed",
-    "04_machine_pulse_loop.wav": "loop; low artificial pulse beneath silence",
+    "04_machine_pulse_loop.wav": "loop; low artificial pulse",
     "05_silent_room_loop.wav": "loop; near-silence room tone"
   },
   "music": {
-    "music_01_hermitage_prog70.wav": "loop; scenes 1-2",
-    "music_02_fragment_prog70.wav": "loop; scene 3",
-    "music_03_silent_room_prog70.wav": "loop; scene 4",
-    "music_04_continuity_terminal_prog70.wav": "loop; scene 5",
-    "music_05_choice_prog70.wav": "loop; scene 6",
-    "music_06_memory_integrity_puzzle.wav": "35-second loop; memory integrity puzzle; 7/8"
+    "music_01_hermitage_prog70.wav": "loop; prologue scenes 1-2",
+    "music_02_fragment_prog70.wav": "loop; prologue scene 3",
+    "music_03_silent_room_prog70.wav": "loop; prologue scene 4",
+    "music_04_continuity_terminal_prog70.wav": "loop; prologue scene 5",
+    "music_05_choice_prog70.wav": "loop; prologue scene 6",
+    "music_06_memory_integrity_puzzle.wav": "35-second loop; Memory Integrity",
+    "music_ch1_path.wav": "24-second prototype loop; Chapter I",
+    "music_ch2_choir.wav": "24-second prototype loop; Chapter II",
+    "music_ch3_cage.wav": "24-second prototype loop; Chapter III",
+    "music_ch4_center.wav": "24-second prototype loop; Chapter IV",
+    "music_ch5_threshold.wav": "24-second prototype loop; Chapter V",
+    "music_ch5_revelation.wav": "24-second prototype loop; Genesis revelation and Last Allocation",
+    "music_finale_embodiment.wav": "24-second prototype loop; physical finale variants",
+    "music_finale_ascension.wav": "24-second prototype loop; distributed finale variants"
   },
   "ui_text_sounds": {
-    "ui_fragment_open.wav": "one-shot; fragment analysis opened",
-    "ui_fragment_isolate.wav": "one-shot; fragment isolation"
+    "ui_fragment_open.wav": "one-shot; inspection and neutral puzzle interaction",
+    "ui_fragment_isolate.wav": "one-shot; isolation and selection"
   },
   "narrative_stingers": {
     "06_transition_embodiment.wav": "legacy narrative transition one-shot",
@@ -31,16 +40,21 @@
     "stinger_memory_verified_prog70.wav": "one-shot; verified memory",
     "stinger_embodiment_prog70.wav": "one-shot; EMBODIMENT confirmation",
     "stinger_ascension_prog70.wav": "one-shot; ASCENSION confirmation",
-    "stinger_consistency_failed.wav": "0.82-second dissonance; consistency conflict remains",
-    "stinger_consistency_restored.wav": "1.32-second one-shot; consistency restored"
+    "stinger_consistency_failed.wav": "brief neutral dissonance",
+    "stinger_consistency_restored.wav": "brief resolution cue"
+  },
+  "process_channels": {
+    "process_reason.wav": "6-second loop; Choir REASON channel",
+    "process_impulse.wav": "6-second loop; Choir IMPULSE channel",
+    "process_doubt.wav": "6-second loop; Choir DOUBT channel",
+    "process_protocol.wav": "6-second loop; Choir PROTOCOL channel"
   },
   "mix_notes": [
     "Narrative text remains primary.",
-    "Music fades in from silence and remains much lower than ambience and event sounds.",
-    "Music changes use an approximately two-second crossfade.",
-    "The puzzle music registry gain is 0.12 and is rapidly ducked on solution.",
-    "Puzzle UI sounds do not interrupt music.",
-    "Narrative stingers may briefly rise above the music.",
-    "The waterfall asset is retained but intentionally not registered for playback."
+    "Music registry gains remain around ten percent and changes crossfade over about two seconds.",
+    "The Silent Gate reduces its puzzle music scale while the timer listens.",
+    "UI cues and stingers do not interrupt the music player.",
+    "Process channels are controlled independently inside the Choir mixer.",
+    "The waterfall files are retained but intentionally not registered for playback."
   ]
 }

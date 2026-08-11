@@ -1,5 +1,31 @@
 # Changelog
 
+## 2026-08-11 - First Complete Playable Alpha 0.3.0
+
+### Added
+- complete data-driven journey: preserved Prologue, five chapters and Finale;
+- ten chapter puzzles using one reusable puzzle action/state framework;
+- six persistent narrative decisions and deterministic resolution of eight ending variants;
+- versioned local autosave, three continuity slots, chapter checkpoints and checkpoint branching;
+- independent music, SFX, haptics and text-speed settings;
+- chapter/finale prototype music, four process-channel loops and narrative haptic cues;
+- automated coverage for the complete journey, puzzles, endings, saves and fallback behavior.
+
+### Updated
+- application shell with main menu, archive, slot replacement flow and return-at-checkpoint behavior;
+- fixed The Map touch handling so every node remains selectable inside the narrative scroll view;
+- replaced the unreliable Prediction Cage long-press with an accessible tap target unlocked after three predictions;
+- redesigned The Compass around three labeled identity signals: each condition explicitly declares which signals belong inside or outside, and validation now uses the geometry shown instead of hidden target values;
+- clarified Dynamic Equilibrium with persistent context numbering, visible accepted ranges and explicit next-context feedback while preserving adaptive carry-over;
+- added a data-driven real-life interpretation to every Dynamic Equilibrium context, connecting its calibration to uncertainty, trust and crisis;
+- clarified Last Allocation with visible phase minimums, free capacity, parameter meanings, precise deficit feedback, a philosophical rationale for each resource shift and a one-minute window per phase;
+- narrative/audio registries for composed story data, two-second music crossfades and chapter placeholders;
+- architecture and playtest documentation for the full alpha milestone.
+
+### Known alpha placeholders
+- chapter visuals reuse existing prologue backgrounds;
+- new soundtrack loops are short procedural drafts;
+- writing and pacing are intentionally unpadded pending the first full playtest.
 ## 2026-08-11 - Memory integrity puzzle
 
 ### Added

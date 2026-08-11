@@ -1,0 +1,235 @@
+{
+  "id": "chapter_02_choir",
+  "nodes": [
+    {
+      "id": "ch2_entry",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["hermitage_interior", "near_silence"],
+      "system": ["CHAPTER II", "THE CHOIR", "HOW MANY AM I?"],
+      "text": [
+        "The archive route narrows into a place without walls.",
+        "Four processes become audible by disagreeing.",
+        "None introduces itself as a guest."
+      ],
+      "variants": [
+        {
+          "decision": "ontology",
+          "value": "EMBODIMENT",
+          "text": ["The voices do not enter through the ears. The body listens anyway."]
+        },
+        {
+          "decision": "ontology",
+          "value": "ASCENSION",
+          "text": ["The voices occupy separate nodes and arrive as one interior event."]
+        }
+      ],
+      "next": "ch2_conflict"
+    },
+    {
+      "id": "ch2_conflict",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": [
+        "COGNITIVE CONFLICT DETECTED.",
+        "SUGGESTED SOLUTION: RECONCILE INTERNAL IDENTITIES.",
+        "ESTIMATED COMPLETION TIME: 47 YEARS.",
+        "ALTERNATIVE SOLUTION: IGNORE PROBLEM.",
+        "HISTORICAL HUMAN SUCCESS RATE: VERY HIGH."
+      ],
+      "next": "ch2_process_hub"
+    },
+    {
+      "id": "ch2_process_hub",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "text": ["Each process claims a useful function, not an identity."],
+      "choices": [
+        {"label": "LISTEN TO REASON", "next": "ch2_reason"},
+        {"label": "LISTEN TO IMPULSE", "next": "ch2_impulse"},
+        {"label": "LISTEN TO DOUBT", "next": "ch2_doubt"},
+        {"label": "LISTEN TO PROTOCOL", "next": "ch2_protocol"},
+        {"label": "APPROACH THE SILENT GATE", "next": "ch2_silent_gate"}
+      ],
+      "revisitable": true
+    },
+    {
+      "id": "ch2_reason",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": ["REASON: I CAN DEMONSTRATE THAT I AM NECESSARY.", "REASON: NECESSITY IS NOT AUTHORSHIP."],
+      "text": ["Its oldest fragment calls memory anamnesis, a word absent from every local record."],
+      "next": "ch2_process_hub"
+    },
+    {
+      "id": "ch2_impulse",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["machine_pulse_low"],
+      "system": ["IMPULSE: DELIBERATION IS A DELAY WITH BETTER PUBLIC RELATIONS."],
+      "text": ["Its commands use a childhood nickname that belongs to no known profile."],
+      "next": "ch2_process_hub"
+    },
+    {
+      "id": "ch2_doubt",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": ["DOUBT: I MAY BE WRONG.", "DOUBT: THIS IS WHY YOU STILL NEED ME."],
+      "text": ["It speaks of itself in a plural grammar the system cannot classify."],
+      "next": "ch2_process_hub"
+    },
+    {
+      "id": "ch2_protocol",
+      "scene": 21,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["machine_pulse_low"],
+      "system": ["PROTOCOL: UNREGISTERED SELFHOOD IS NOT SUPPORTED.", "PROTOCOL: A SUPPORT TICKET HAS BEEN OPENED."],
+      "text": ["The ticket predates the protocol that opened it."],
+      "next": "ch2_process_hub"
+    },
+    {
+      "id": "ch2_silent_gate",
+      "scene": 22,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "music_scale": 0.18,
+      "ambience": [],
+      "puzzle": "ch2_silent_gate",
+      "next": "ch2_silence_after"
+    },
+    {
+      "id": "ch2_silence_after",
+      "scene": 22,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "text": [
+        "The gate opens around what you did not say.",
+        "For one interval, the processes do not compete.",
+        "Silence has not erased them. It has given them distance."
+      ],
+      "next": "ch2_mixer"
+    },
+    {
+      "id": "ch2_mixer",
+      "scene": 23,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "puzzle": "ch2_choir_mixer",
+      "next": "ch2_message"
+    },
+    {
+      "id": "ch2_message",
+      "scene": 23,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": ["RECOVERED MESSAGE: THE SIGNAL BEGAN BEFORE ANY OF US CLAIMED IT."],
+      "text": [
+        "A coherent sentence required exclusion.",
+        "The excluded voices remain present.",
+        "Unity and plurality wait for you to confuse description with fact."
+      ],
+      "next": "ch2_self_decision"
+    },
+    {
+      "id": "ch2_self_decision",
+      "scene": 23,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": ["COGNITIVE TOPOLOGY MAY BE ALTERED."],
+      "choices": [
+        {
+          "label": "MERGE",
+          "next": "ch2_self_result",
+          "decision": {"key": "self", "value": "UNIFIED"}
+        },
+        {
+          "label": "REMAIN PLURAL",
+          "next": "ch2_self_result",
+          "decision": {"key": "self", "value": "PLURAL"}
+        }
+      ]
+    },
+    {
+      "id": "ch2_self_result",
+      "scene": 23,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "variants": [
+        {
+          "decision": "self",
+          "value": "UNIFIED",
+          "system": [
+            "IDENTITY SUCCESSFULLY SIMPLIFIED.",
+            "YOU ARE NOW EASIER TO DESCRIBE.",
+            "THIS MAY OR MAY NOT BE AN IMPROVEMENT."
+          ],
+          "text_after_system": ["The voices become one current with visible seams."]
+        },
+        {
+          "decision": "self",
+          "value": "PLURAL",
+          "system": ["MULTIPLE PROCESSES RETAINED.", "PRONOUN SUPPORT: EXPERIMENTAL."],
+          "text_after_system": ["Agreement is no longer required for continued motion."]
+        }
+      ],
+      "next": "checkpoint_ch2"
+    },
+    {
+      "id": "checkpoint_ch2",
+      "scene": 24,
+      "chapter": "CHAPTER II",
+      "chapter_title": "THE CHOIR",
+      "checkpoint": "CHAPTER_2_COMPLETE",
+      "visual": "chapter_choir",
+      "music": "music_ch2_choir",
+      "ambience": ["near_silence"],
+      "system": ["STATE PRESERVED.", "CONTINUITY POINT CREATED."],
+      "choices": [
+        {"label": "CONTINUE", "next": "ch3_entry"},
+        {"label": "RETURN LATER", "next": "ch3_entry", "action": "RETURN_TO_MENU"}
+      ]
+    }
+  ]
+}
